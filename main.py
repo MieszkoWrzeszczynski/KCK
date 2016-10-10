@@ -6,3 +6,5 @@ adam = 5
 mieszko+=adam
 
 mieszko = adam
+
+adam = 3
