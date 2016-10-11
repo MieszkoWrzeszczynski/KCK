@@ -1,10 +1,8 @@
-print("Hello, świat!")
+print("Hello, world!")
 
-mieszko = "Wrzeszko"
-adam = 5
+contributors = ['Mieszko','Adam','Maciej']
 
-mieszko+=adam
+for contributor in contributors:
+    print(contributor)
 
-mieszko = adam
-
-adam = 3
+    
