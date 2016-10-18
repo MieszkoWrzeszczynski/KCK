@@ -17,7 +17,8 @@ for w in example_words:
     print(ps.stem(w))
 ############************************************************************
 '''
-POS tag list:
+
+English POS tag list:
 
 CC	coordinating conjunction
 CD	cardinal digit
