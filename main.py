@@ -5,5 +5,4 @@ contributors = ['Mieszko','Adam','Maciej']
 for contributor in contributors:
     print(contributor)
 
-contributors.append('Tomasz')
 

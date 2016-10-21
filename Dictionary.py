@@ -21,16 +21,10 @@ def load():
 def add(word, command):
     if word not in words:
         words[word] = command
-        print('({0},{1}) - Added!'.format(word, command))
+        #print('({0},{1}) - Added!'.format(word, command))
     else:
         print('\'{0}\' key already exists in dictionary as ({0},{1})'.format(word, words[word]))
 
 
-# addword('test',321)
-# addword('test3',321)
-add('test2', 321)
-add('te', 321)
-add('testere', 321)
-
 load()
-save()
+print(words)
