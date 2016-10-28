@@ -3,14 +3,16 @@ Created by PLY version 3.9 (http://www.dabeaz.com/ply)
 Grammar
 
 Rule 0     S' -> expression
-Rule 1     expression -> CMD DIRECTION
-Rule 2     expression -> NO CMD DIRECTION
+Rule 1     expression -> GO DIRECTION
+Rule 2     expression -> NO GO DIRECTION
+Rule 3     expression -> GO NUMBER DIRECTION
 
 Terminals, with rules where they appear
 
-CMD                  : 1 2
-DIRECTION            : 1 2
+DIRECTION            : 1 2 3
+GO                   : 1 2 3
 NO                   : 2
+NUMBER               : 3
 error                : 
 
 Nonterminals, with rules where they appear
@@ -22,51 +24,68 @@ Parsing method: LALR
 state 0
 
     (0) S' -> . expression
-    (1) expression -> . CMD DIRECTION
-    (2) expression -> . NO CMD DIRECTION
+    (1) expression -> . GO DIRECTION
+    (2) expression -> . NO GO DIRECTION
+    (3) expression -> . GO NUMBER DIRECTION
 
-    CMD             shift and go to state 1
+    GO              shift and go to state 2
     NO              shift and go to state 3
 
-    expression                     shift and go to state 2
+    expression                     shift and go to state 1
 
 state 1
-
-    (1) expression -> CMD . DIRECTION
-
-    DIRECTION       shift and go to state 4
-
-
-state 2
 
     (0) S' -> expression .
 
 
 
+state 2
+
+    (1) expression -> GO . DIRECTION
+    (3) expression -> GO . NUMBER DIRECTION
+
+    DIRECTION       shift and go to state 4
+    NUMBER          shift and go to state 5
+
+
 state 3
 
-    (2) expression -> NO . CMD DIRECTION
+    (2) expression -> NO . GO DIRECTION
 
-    CMD             shift and go to state 5
+    GO              shift and go to state 6
 
 
 state 4
 
-    (1) expression -> CMD DIRECTION .
+    (1) expression -> GO DIRECTION .
 
-    $end            reduce using rule 1 (expression -> CMD DIRECTION .)
+    $end            reduce using rule 1 (expression -> GO DIRECTION .)
 
 
 state 5
 
-    (2) expression -> NO CMD . DIRECTION
+    (3) expression -> GO NUMBER . DIRECTION
 
-    DIRECTION       shift and go to state 6
+    DIRECTION       shift and go to state 7
 
 
 state 6
 
-    (2) expression -> NO CMD DIRECTION .
+    (2) expression -> NO GO . DIRECTION
 
-    $end            reduce using rule 2 (expression -> NO CMD DIRECTION .)
+    DIRECTION       shift and go to state 8
+
+
+state 7
+
+    (3) expression -> GO NUMBER DIRECTION .
+
+    $end            reduce using rule 3 (expression -> GO NUMBER DIRECTION .)
+
+
+state 8
+
+    (2) expression -> NO GO DIRECTION .
+
+    $end            reduce using rule 2 (expression -> NO GO DIRECTION .)
 
