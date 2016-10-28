@@ -1,33 +1,47 @@
 Created by PLY version 3.9 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    DIRECTION
-    CMD
-
 Grammar
 
-Rule 0     S' -> statement
-Rule 1     statement -> expression
-Rule 2     expression -> expression PLUS expression
-Rule 3     expression -> expression MINUS expression
-Rule 4     expression -> expression TIMES expression
-Rule 5     expression -> expression DIVIDE expression
-Rule 6     expression -> NUMBER
+Rule 0     S' -> expression
+Rule 1     expression -> CMD DIRECTION
 
 Terminals, with rules where they appear
 
-CMD                  : 
-DIRECTION            : 
+CMD                  : 1
+DIRECTION            : 1
 error                : 
 
 Nonterminals, with rules where they appear
 
-DIVIDE               : 5
-MINUS                : 3
-NUMBER               : 6
-PLUS                 : 2
-TIMES                : 4
-expression           : 1 2 2 3 3 4 4 5 5
-statement            : 0
+expression           : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . CMD DIRECTION
+
+    CMD             shift and go to state 2
+
+    expression                     shift and go to state 1
+
+state 1
+
+    (0) S' -> expression .
+
+
+
+state 2
+
+    (1) expression -> CMD . DIRECTION
+
+    DIRECTION       shift and go to state 3
+
+
+state 3
+
+    (1) expression -> CMD DIRECTION .
+
+    $end            reduce using rule 1 (expression -> CMD DIRECTION .)
 
