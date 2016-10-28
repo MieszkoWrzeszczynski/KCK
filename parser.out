@@ -4,11 +4,13 @@ Grammar
 
 Rule 0     S' -> expression
 Rule 1     expression -> CMD DIRECTION
+Rule 2     expression -> NO CMD DIRECTION
 
 Terminals, with rules where they appear
 
-CMD                  : 1
-DIRECTION            : 1
+CMD                  : 1 2
+DIRECTION            : 1 2
+NO                   : 2
 error                : 
 
 Nonterminals, with rules where they appear
@@ -21,27 +23,50 @@ state 0
 
     (0) S' -> . expression
     (1) expression -> . CMD DIRECTION
+    (2) expression -> . NO CMD DIRECTION
 
-    CMD             shift and go to state 2
+    CMD             shift and go to state 1
+    NO              shift and go to state 3
 
-    expression                     shift and go to state 1
+    expression                     shift and go to state 2
 
 state 1
+
+    (1) expression -> CMD . DIRECTION
+
+    DIRECTION       shift and go to state 4
+
+
+state 2
 
     (0) S' -> expression .
 
 
 
-state 2
-
-    (1) expression -> CMD . DIRECTION
-
-    DIRECTION       shift and go to state 3
-
-
 state 3
+
+    (2) expression -> NO . CMD DIRECTION
+
+    CMD             shift and go to state 5
+
+
+state 4
 
     (1) expression -> CMD DIRECTION .
 
     $end            reduce using rule 1 (expression -> CMD DIRECTION .)
+
+
+state 5
+
+    (2) expression -> NO CMD . DIRECTION
+
+    DIRECTION       shift and go to state 6
+
+
+state 6
+
+    (2) expression -> NO CMD DIRECTION .
+
+    $end            reduce using rule 2 (expression -> NO CMD DIRECTION .)
 

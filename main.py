@@ -8,11 +8,13 @@ import replacePolish
 tokens = (
     'CMD',
     'DIRECTION',
+    'NO'
 #    'OTHER'
     )
 
-t_CMD = r'idź'
+t_CMD = 'idź'
 t_DIRECTION = r'(lewo|prawo|góra|dół)'
+t_NO = 'nie'
 
 #t_OTHER = r'\w+'
 t_ignore = " \t"
@@ -26,16 +28,18 @@ lexer = lex.lex()
 #parser
 def p_expression_move(p):
     'expression : CMD DIRECTION '
-    print('Ide')
+    print('Ide w',p[2])
+
+def p_expression_nmove(p):
+    'expression : NO CMD DIRECTION'
+    print('Nigdzie nie ide!')
 
 def p_error(p):
     print("Nie rozumiem!")
 
 yacc.yacc()
 
-while True: # pętla główna
-    #try:
+# pętla główna
+while True:
     s  = input('> ')
-   # except EOFError:
-    #    break
     yacc.parse(s)

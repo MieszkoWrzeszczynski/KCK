@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'E59B4A41F3443E23FB7B6563B5C3F30C'
+_lr_signature = 'A489AE5B81F6A7D0A3D285F64F400979'
     
-_lr_action_items = {'DIRECTION':([2,],[3,]),'$end':([1,3,],[0,-1,]),'CMD':([0,],[2,]),}
+_lr_action_items = {'NO':([0,],[3,]),'CMD':([0,3,],[1,5,]),'$end':([2,4,6,],[0,-1,-2,]),'DIRECTION':([1,5,],[4,6,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,],[1,]),}
+_lr_goto_items = {'expression':([0,],[2,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,5 +26,6 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> CMD DIRECTION','expression',2,'p_expression_move','main.py',26),
+  ('expression -> CMD DIRECTION','expression',2,'p_expression_move','main.py',30),
+  ('expression -> NO CMD DIRECTION','expression',3,'p_expression_nmove','main.py',34),
 ]
