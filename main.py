@@ -2,40 +2,48 @@
 
 import ply.lex as lex
 import ply.yacc as yacc
-import replacePolish
 
 #lexer
 tokens = (
-    'CMD',
+    'GO',
     'DIRECTION',
-#    'OTHER'
+    'NO',
+    'NUMBER'
     )
 
-t_CMD = r'idź'
-t_DIRECTION = r'(lewo|prawo|góra|dół)'
+t_GO = r'(id(z|ź)|przesu(n|ń) si(ę|e)|p(ó|o)jd(z|ź)|przejd(ź|z)|podejd(z|ź|)|biegnij|pobiegnij)'
+t_DIRECTION = r'(lew(o|ą)|praw(ą|o)|gór(a|ę)|dół)'
+t_NO = 'nie'
 
-#t_OTHER = r'\w+'
-t_ignore = " \t"
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
 
 def t_error(t):
-#    print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
 lexer = lex.lex()
 
 #parser
 def p_expression_move(p):
-    'expression : CMD DIRECTION '
-    print('Ide')
+    'expression : GO DIRECTION '
+    print('Ide w',p[2])
+
+def p_expression_nmove(p):
+    'expression : NO GO DIRECTION'
+    print('Nigdzie nie ide!')
+
+def p_expression_moves(p):
+    'expression : GO NUMBER DIRECTION'
+    print('Ide ' + str(p[2]) + " razy w " + p[3])
 
 def p_error(p):
     print("Nie rozumiem!")
 
 yacc.yacc()
 
-while True: # pętla główna
-    #try:
+# pętla główna
+while True:
     s  = input('> ')
-   # except EOFError:
-    #    break
-    yacc.parse(s)
+    yacc.parse(s.lower())
