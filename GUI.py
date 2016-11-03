@@ -1,6 +1,7 @@
 import arcade
 import re
-
+import lex
+import yacc 
 
 SPRITE_SCALING = 1
 SCREEN_WIDTH = 620
@@ -9,30 +10,64 @@ MOVEMENT_SPEED = 15
 
 
 class Input():
-    
-    def __init__(self):
-        self.input = None 
+    def get(self):
+        pl_words = {
+            'lewo': 1,
+            'lewą': 1,
+            'góra': 2,
+            'górę': 2,
+            'prawo':3,
+            'prawą':3,
+            'dół': 4
+        }
 
-    def normalize(self):
-        result = re.findall(r'\w+', self.input)
-        result = list(map(lambda x: x.lower(), result))
-        print(result)
-        return  self.checkWords(result)
+        #lexer
+        tokens = (
+            'GO',
+            'DIRECTION',
+            'NO',
+            'NUMBER'
+            )
 
-    def checkWords(self,list_of_words):
-        for word in list_of_words:
-            if(word   == "lewo"):
-                return 1
-            elif(word == "góra"):
-                return 2
-            elif(word == "prawo"):
-                return 3
-            elif(word == "dół"):
-                return 4
+        t_GO = r'(id(z|ź)|przesu(n|ń) si(ę|e)|p(ó|o)jd(z|ź)|przejd(ź|z)|podejd(z|ź|)|biegnij|pobiegnij)'
+        t_DIRECTION = r'(lew(o|ą)|praw(ą|o)|gór(a|ę)|dół)'
+        t_NO = 'nie'
 
-    def getInput(self):
-        self.input = input()
-        return self.normalize()
+        def t_NUMBER(t):
+            r'\d+'
+            t.value = int(t.value)
+            return t
+
+        def t_error(t):
+            t.lexer.skip(1)
+
+        lexer = lex.lex()
+
+        def p_expression_move(p):
+            'expression : GO DIRECTION '
+            print('Ide w',p[2])
+            p[0] = p[2]
+
+        def p_expression_nmove(p):
+            'expression : NO GO DIRECTION'
+            print('Nigdzie nie ide!')
+
+        def p_expression_moves(p):
+            'expression : GO NUMBER DIRECTION'
+            print('Ide ' + str(p[2]) + " razy w " + p[3])
+            p[0] = (p[2],p[3])
+
+        def p_error(p):
+            print("Nie rozumiem!")
+
+        yacc.yacc()
+
+        cur_direct = ""
+        s  = input()
+        cur_direct = yacc.parse(s)
+
+        if(cur_direct in pl_words):
+            return(pl_words[cur_direct])
 
 class Lecturer(arcade.Sprite):
 
@@ -51,7 +86,7 @@ class Gui(arcade.Window):
         self.table_list = None
         self.score = 0
         self.physics_engine = None
-        self.input = None 
+        self.input = Input()
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -59,7 +94,6 @@ class Gui(arcade.Window):
         self.lecturer = Lecturer(120,250,"images/lecturer.png", 1)
         self.background_list = arcade.SpriteList()
         self.table_list = arcade.SpriteList()
-        self.input = Input()
         map = self.get_map()
 
         self.drawBackground()
@@ -139,10 +173,22 @@ class Gui(arcade.Window):
     def animate(self, dt):
         """ Movement and game logic """
 
-        key = self.input.getInput()
+        key = self.input.get()
 
         if(key == 1):
            self.on_key_press(65361,0)
+           #n steps on left
+           # self.physics_engine.update()
+           # self.on_draw()
+           # self.on_key_press(65361,0)
+           # self.physics_engine.update()
+           # self.on_draw()
+           # self.on_key_press(65361,0)
+           # self.physics_engine.update()
+           # self.on_draw()
+           # self.on_key_press(65361,0)
+           # self.physics_engine.update()
+           # self.on_draw()
         elif(key == 2):
            self.on_key_press(65362,0)
         elif(key == 3):
