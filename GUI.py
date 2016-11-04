@@ -27,9 +27,9 @@ class Input():
             'DIRECTION',
             'NO',
             'NUMBER'
-            )
+        )
 
-        t_GO = r'(id(z|ź)|przesu(n|ń) si(ę|e)|p(ó|o)jd(z|ź)|przejd(ź|z)|podejd(z|ź|)|biegnij|pobiegnij)'
+        t_GO = r'i[sś][cć]|(id(z|ź)|przesu(n|ń) si(ę|e)|p(ó|o)jd(z|ź)|przejd(ź|z)|podejd(z|ź|)|biegnij|pobiegnij)'
         t_DIRECTION = r'(lew(o|ą)|praw(ą|o)|gór(a|ę)|dół)'
         t_NO = 'nie'
 
@@ -63,8 +63,12 @@ class Input():
         yacc.yacc()
 
         cur_direct = ""
-        s  = input()
+        s  = input(">")
         cur_direct = yacc.parse(s)
+        if type(cur_direct) is tuple:
+            if(cur_direct[1] in pl_words):
+                print(pl_words[cur_direct[1]]  , cur_direct[0] )
+                return  (pl_words[cur_direct[1]]  , cur_direct[0] )
 
         if(cur_direct in pl_words):
             return(pl_words[cur_direct])
@@ -170,31 +174,34 @@ class Gui(arcade.Window):
         if(len(self.hit_list) > 0):
             return True
 
+    def moveNSteps(self,steps,direct):
+
+        for i in range(steps):
+           self.on_key_press(direct,0)
+           self.physics_engine.update()
+           self.on_draw()
+
+
     def animate(self, dt):
         """ Movement and game logic """
 
-        key = self.input.get()
-
+        input = self.input.get()
+        
+        if(type(input) is tuple):
+            key = int(input[0])
+            steps = int(input[1])
+        else:
+            key = input
+            steps = 1
+         
         if(key == 1):
-           self.on_key_press(65361,0)
-           #n steps on left
-           # self.physics_engine.update()
-           # self.on_draw()
-           # self.on_key_press(65361,0)
-           # self.physics_engine.update()
-           # self.on_draw()
-           # self.on_key_press(65361,0)
-           # self.physics_engine.update()
-           # self.on_draw()
-           # self.on_key_press(65361,0)
-           # self.physics_engine.update()
-           # self.on_draw()
+           self.moveNSteps(steps,65361)
         elif(key == 2):
-           self.on_key_press(65362,0)
+           self.moveNSteps(steps,65362)
         elif(key == 3):
-           self.on_key_press(65363,0)
+           self.moveNSteps(steps,65363)
         elif(key == 4):
-           self.on_key_press(65364,0)
+           self.moveNSteps(steps,65364)
 
         self.physics_engine.update()
 
