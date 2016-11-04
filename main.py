@@ -48,7 +48,6 @@ def p_expression_move(p):
    print('Ide w',p[2])
 
 
-
 def p_expression_nmove(p):
     'expression : NO GO DIRECTION'
     print('Nigdzie nie ide!')
