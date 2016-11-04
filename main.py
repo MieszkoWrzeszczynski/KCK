@@ -2,6 +2,7 @@
 
 import ply.lex as lex
 import ply.yacc as yacc
+from ply.lex import TOKEN
 
 #lexer
 tokens = (
@@ -13,7 +14,17 @@ tokens = (
     )
 
 t_GO = r'\b(i[sś][cć]|id[zź]|przesu[nń]|p[oó]jd[zź]|przejd[źz]|podejd[zź]|biegnij|pobiegnij|piegnij)\b'
-t_DIRECTION = r'\b(lew[oą]|praw[ąo]|g[oó]r([ąa]|[eę])|d[óo][lł])\b'
+
+
+data = "lewo prawo gora dol dół dołem left right top down"
+data = data.split() #make data a list of keywords
+
+@TOKEN('|'.join(data))
+def t_DIRECTION(t):
+    return t
+
+
+#t_DIRECTION = r'\b(lew[oą]|praw[ąo]|g[oó]r([ąa]|[eę])|d[óo][lł])\b'
 #t_UNKNOWN = r'\w'
 t_NO = 'nie'
 #t_ignore = r' [woz] | do | na | si[eę]'
@@ -54,14 +65,15 @@ def p_error(p):
 
 yacc.yacc()
 
+'''
 # pętla główna
 while True:
     s = input('> ')
     yacc.parse(s.lower())
 
+'''
 
-
-data = "idz 3 razy w prawo"
+data = "idz 3 razy w prawo lewo lewą top down"
 lexer.input(data)
 
 
@@ -71,4 +83,5 @@ while True:
     if not tok:
         break      # No more input
     print(tok.value," ", tok.type)
+
 
