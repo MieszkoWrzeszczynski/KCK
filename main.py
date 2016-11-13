@@ -10,7 +10,6 @@ tokens = (
     'DIRECTION',
     'NO',
     'NUMBER',
-    'UNKNOWN'
     )
 
 t_GO = r'\b(i[sś][cć]|id[zź]|przesu[nń]|p[oó]jd[zź]|przejd[źz]|podejd[zź]|biegnij|pobiegnij|piegnij)\b'
