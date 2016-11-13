@@ -1,87 +1,23 @@
 import arcade
-import re
-import lex
-import yacc 
+from Student import Student
+from Lecturer import Lecturer
+from Parser import Parser
+from Physics import Physics
 
 SPRITE_SCALING = 1
 SCREEN_WIDTH = 620
 SCREEN_HEIGHT = 620
 MOVEMENT_SPEED = 15
 
+LEFT = 1
+TOP = 2
+RIGHT = 3
+BOTTOM = 4
+ASK = 5
 
-class Input():
-    def get(self):
-        pl_words = {
-            'lewo': 1,
-            'lewą': 1,
-            'góra': 2,
-            'górę': 2,
-            'prawo':3,
-            'prawą':3,
-            'dół': 4
-        }
 
-        #lexer
-        tokens = (
-            'GO',
-            'DIRECTION',
-            'NO',
-            'NUMBER'
-        )
 
-        t_GO = r'i[sś][cć]|(id(z|ź)|przesu(n|ń) si(ę|e)|p(ó|o)jd(z|ź)|przejd(ź|z)|podejd(z|ź|)|biegnij|pobiegnij)'
-        t_DIRECTION = r'(lew(o|ą)|praw(ą|o)|gór(a|ę)|dół)'
-        t_NO = 'nie'
-
-        def t_NUMBER(t):
-            r'\d+'
-            t.value = int(t.value)
-            return t
-
-        def t_error(t):
-            t.lexer.skip(1)
-
-        lexer = lex.lex()
-
-        def p_expression_move(p):
-            'expression : GO DIRECTION '
-            print('Ide w',p[2])
-            p[0] = p[2]
-
-        def p_expression_nmove(p):
-            'expression : NO GO DIRECTION'
-            print('Nigdzie nie ide!')
-
-        def p_expression_moves(p):
-            'expression : GO NUMBER DIRECTION'
-            print('Ide ' + str(p[2]) + " razy w " + p[3])
-            p[0] = (p[2],p[3])
-
-        def p_error(p):
-            print("Nie rozumiem!")
-
-        yacc.yacc()
-
-        cur_direct = ""
-        s  = input(">")
-        cur_direct = yacc.parse(s)
-        if type(cur_direct) is tuple:
-            if(cur_direct[1] in pl_words):
-                print(pl_words[cur_direct[1]]  , cur_direct[0] )
-                return  (pl_words[cur_direct[1]]  , cur_direct[0] )
-
-        if(cur_direct in pl_words):
-            return(pl_words[cur_direct])
-
-class Lecturer(arcade.Sprite):
-
-    def __init__(self,x,y, filename, sprite_scaling):
-        # Call the parent class (Sprite) constructor
-        super().__init__(filename, sprite_scaling)
-        self.center_x = x
-        self.center_y = y
-
-class Gui(arcade.Window):
+class App(arcade.Window):
 
     def __init__(self, width, height):
         super().__init__(width, height, title="Egzaminator")
@@ -90,22 +26,22 @@ class Gui(arcade.Window):
         self.table_list = None
         self.score = 0
         self.physics_engine = None
-        self.input = Input()
+        self.input = Parser()
 
     def setup(self):
         """ Set up the game and initialize the variables. """
-        self.left_down = False
         self.lecturer = Lecturer(120,250,"images/lecturer.png", 1)
+        self.students = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
         self.table_list = arcade.SpriteList()
-        map = self.get_map()
-
+        self.items = arcade.SpriteList()
         self.drawBackground()
+        map = self.get_map()
         self.drawMap(map)
-        self.physics_engine = arcade.PhysicsEngineSimple(self.lecturer,self.table_list)
+        self.physics_engine = Physics(self.lecturer,self.items)
 
     def get_map(self):
-        map_file = open("map.csv")
+        map_file = open("maps/map.csv")
         map_array = []
         for line in map_file:
             line = line.strip()
@@ -127,7 +63,16 @@ class Gui(arcade.Window):
                     table.height = 32;
                     table.center_x = position_x
                     table.center_y = position_y
-                    self.table_list.append(table)
+                    self.items.append(table)
+
+                    student = arcade.Sprite("images/student.png", 1)
+                    student.width = 32;
+                    student.height = 28;
+                    student.center_x = position_x 
+                    student.center_y = position_y + 32
+                    self.items.append(student)
+                    self.students.append(student)
+
                 position_x += 62
             position_y += 62
             position_x = 0
@@ -149,15 +94,16 @@ class Gui(arcade.Window):
             position_y += 62
             position_x = 0
 
+
     def on_draw(self):
         """
         Render the screen.
         """
         # This command has to happen before we start drawing
         arcade.start_render()
-        
+
         self.background_list.draw()
-        self.table_list.draw()
+        self.items.draw()
         self.lecturer.draw()
 
         self.on_key_release(65361, 0)
@@ -167,24 +113,20 @@ class Gui(arcade.Window):
         output = "Score: {}".format(self.score)
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
 
-    def ifCollided(self):
-        self.hit_list = \
-            arcade.check_for_collision_with_list(self.lecturer,self.table_list)
-
-        if(len(self.hit_list) > 0):
-            return True
 
     def moveNSteps(self,steps,direct):
 
         for i in range(steps):
-           self.on_key_press(direct,0)
-           self.physics_engine.update()
-           self.on_draw()
+            self.on_key_press(direct,0)
+            self.physics_engine.update()
+            self.on_draw()
+            studentCollison = self.physics_engine.getCollided()
+
+        print(studentCollison)
 
 
     def animate(self, dt):
         """ Movement and game logic """
-
         input = self.input.get()
         
         if(type(input) is tuple):
@@ -193,17 +135,25 @@ class Gui(arcade.Window):
         else:
             key = input
             steps = 1
-         
-        if(key == 1):
+        print(key)
+       
+        
+        if(key == LEFT):
            self.moveNSteps(steps,65361)
-        elif(key == 2):
+        elif(key == TOP):
            self.moveNSteps(steps,65362)
-        elif(key == 3):
+        elif(key == RIGHT):
            self.moveNSteps(steps,65363)
-        elif(key == 4):
+        elif(key == BOTTOM):
            self.moveNSteps(steps,65364)
 
-        self.physics_engine.update()
+        studentCollison = self.physics_engine.getCollided()
+        print(studentCollison)
+
+        if(key == ASK and studentCollison == "Jebłem w studenta" ):
+            print("Tak ściągam!")
+        
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
@@ -223,7 +173,7 @@ class Gui(arcade.Window):
             self.lecturer.change_x = 0
 
 def main():
-    window = Gui(SCREEN_WIDTH, SCREEN_HEIGHT)
+    window = App(SCREEN_WIDTH, SCREEN_HEIGHT)
     window.setup()
     arcade.run()
 
