@@ -4,6 +4,7 @@ roguelike-indoor-pack/
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
+__pycache__
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
@@ -42,3 +43,8 @@ fabric.properties
 
 #dict
 dict/
+#ply
+parsetab.py 
+parser.out 
+yacc.py 
+lex.py
