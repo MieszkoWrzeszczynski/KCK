@@ -5,106 +5,106 @@ import ply.lex as lex
 import ply.yacc as yacc
 from ply.lex import TOKEN
 
+class Parser():
 
-def loadToken(fileName):
-    dirPath = os.path.dirname(os.path.realpath(__file__))
-    dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
-    with open(dirPathTokens + fileName) as file:
-        return '|'.join(file.read().split())
+    output = {}
 
+    def loadToken(fileName):
+        dirPath = os.path.dirname(os.path.realpath(__file__))
+        dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
+        with open(dirPathTokens + fileName) as file:
+            return '|'.join(file.read().split())
 
-
-#lexer
-tokens = (
-    'GO',
-    'NUMBER',
-    'LEFT',
-    'RIGHT',
-    'TOP',
-    'DOWN'
-    )
-
-
-@TOKEN(loadToken("t_GO"))
-def t_GO(t):
-    return t
-
-@TOKEN(loadToken("t_RIGHT"))
-def t_RIGHT(t):
-    return t
-
-@TOKEN(loadToken("t_LEFT"))
-def t_LEFT(t):
-    return t
-
-@TOKEN(loadToken("t_TOP"))
-def t_TOP(t):
-    return t
-
-@TOKEN(loadToken("t_DOWN"))
-def t_DOWN(t):
-    return t
-
-def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-def t_error(t):
-    t.lexer.skip(1)
-
-lexer = lex.lex()
-
-def p_move(p):
-    '''move : GO direction
-            | GO num direction'''
-    print("p_move()")
-
-def p_num(p):
-    'num : NUMBER'
-    print("p_num()")
-
-def p_direction(p):
-    '''direction : left
-                | right
-                | top
-                | down
-                '''
-    print("p_direction()")
+    #lexer
+    tokens = (
+        'GO',
+        'NUMBER',
+        'LEFT',
+        'RIGHT',
+        'TOP',
+        'DOWN'
+        )
 
 
-def p_left(p):
-    'left : LEFT'
-    print("p_left")
+    @TOKEN(loadToken("t_GO"))
+    def t_GO(t):
+        return t
 
-def p_right(p):
-    'right : RIGHT'
-    print("p_right")
+    @TOKEN(loadToken("t_RIGHT"))
+    def t_RIGHT(t):
+        return t
 
-def p_top(p):
-    'top : TOP'
-    print("p_top")
+    @TOKEN(loadToken("t_LEFT"))
+    def t_LEFT(t):
+        return t
 
-def p_down(p):
-    'down : DOWN'
-    print("p_down")
+    @TOKEN(loadToken("t_TOP"))
+    def t_TOP(t):
+        return t
 
-def p_error(p):
-    print("Nie rozumiem!")
+    @TOKEN(loadToken("t_DOWN"))
+    def t_DOWN(t):
+        return t
 
-yacc.yacc()
+    def t_NUMBER(t):
+        r'\d+'
+        t.value = int(t.value)
+        return t
+
+    def t_error(t):
+        t.lexer.skip(1)
+
+    lexer = lex.lex()
+
+    def p_move(p):
+        '''move : GO direction
+                | GO num direction'''
+        print("p_move() ", len(p))
+       # if(len(p))
+
+    def p_num(p):
+        'num : NUMBER'
+        print("p_num()")
+
+    def p_direction(p):
+        '''direction : left
+                    | right
+                    | top
+                    | down
+                    '''
+        print("p_direction()")
 
 
+    def p_left(p):
+        'left : LEFT'
+        print("p_left")
 
+    def p_right(p):
+        'right : RIGHT'
+        print("p_right")
 
+    def p_top(p):
+        'top : TOP'
+        print("p_top")
+
+    def p_down(p):
+        'down : DOWN'
+        print("p_down")
+
+    def p_error(p):
+        print("Nie rozumiem!")
+
+    yacc.yacc()
 
 
 
-# pętla główna
-while True:
-    s = input('> ').lower()
-    if s == "q": break
-    cos = yacc.parse(s)
+
+
+    # pętla główna
+    while True:
+        s = input('> ').lower()
+        if s == "q": break
+        yacc.parse(s)
 
 
 

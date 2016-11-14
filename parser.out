@@ -61,18 +61,18 @@ state 1
     (10) top -> . TOP
     (11) down -> . DOWN
 
-    NUMBER          shift and go to state 5
-    LEFT            shift and go to state 9
-    RIGHT           shift and go to state 6
-    TOP             shift and go to state 13
+    NUMBER          shift and go to state 8
+    LEFT            shift and go to state 7
+    RIGHT           shift and go to state 5
+    TOP             shift and go to state 4
     DOWN            shift and go to state 10
 
-    top                            shift and go to state 7
-    left                           shift and go to state 3
-    num                            shift and go to state 8
-    direction                      shift and go to state 4
-    right                          shift and go to state 11
+    top                            shift and go to state 3
+    right                          shift and go to state 9
+    direction                      shift and go to state 11
+    left                           shift and go to state 6
     down                           shift and go to state 12
+    num                            shift and go to state 13
 
 state 2
 
@@ -82,19 +82,40 @@ state 2
 
 state 3
 
+    (6) direction -> top .
+
+    $end            reduce using rule 6 (direction -> top .)
+
+
+state 4
+
+    (10) top -> TOP .
+
+    $end            reduce using rule 10 (top -> TOP .)
+
+
+state 5
+
+    (9) right -> RIGHT .
+
+    $end            reduce using rule 9 (right -> RIGHT .)
+
+
+state 6
+
     (4) direction -> left .
 
     $end            reduce using rule 4 (direction -> left .)
 
 
-state 4
+state 7
 
-    (1) move -> GO direction .
+    (8) left -> LEFT .
 
-    $end            reduce using rule 1 (move -> GO direction .)
+    $end            reduce using rule 8 (left -> LEFT .)
 
 
-state 5
+state 8
 
     (3) num -> NUMBER .
 
@@ -104,48 +125,11 @@ state 5
     DOWN            reduce using rule 3 (num -> NUMBER .)
 
 
-state 6
-
-    (9) right -> RIGHT .
-
-    $end            reduce using rule 9 (right -> RIGHT .)
-
-
-state 7
-
-    (6) direction -> top .
-
-    $end            reduce using rule 6 (direction -> top .)
-
-
-state 8
-
-    (2) move -> GO num . direction
-    (4) direction -> . left
-    (5) direction -> . right
-    (6) direction -> . top
-    (7) direction -> . down
-    (8) left -> . LEFT
-    (9) right -> . RIGHT
-    (10) top -> . TOP
-    (11) down -> . DOWN
-
-    LEFT            shift and go to state 9
-    RIGHT           shift and go to state 6
-    TOP             shift and go to state 13
-    DOWN            shift and go to state 10
-
-    top                            shift and go to state 7
-    left                           shift and go to state 3
-    direction                      shift and go to state 14
-    right                          shift and go to state 11
-    down                           shift and go to state 12
-
 state 9
 
-    (8) left -> LEFT .
+    (5) direction -> right .
 
-    $end            reduce using rule 8 (left -> LEFT .)
+    $end            reduce using rule 5 (direction -> right .)
 
 
 state 10
@@ -157,9 +141,9 @@ state 10
 
 state 11
 
-    (5) direction -> right .
+    (1) move -> GO direction .
 
-    $end            reduce using rule 5 (direction -> right .)
+    $end            reduce using rule 1 (move -> GO direction .)
 
 
 state 12
@@ -171,10 +155,26 @@ state 12
 
 state 13
 
-    (10) top -> TOP .
+    (2) move -> GO num . direction
+    (4) direction -> . left
+    (5) direction -> . right
+    (6) direction -> . top
+    (7) direction -> . down
+    (8) left -> . LEFT
+    (9) right -> . RIGHT
+    (10) top -> . TOP
+    (11) down -> . DOWN
 
-    $end            reduce using rule 10 (top -> TOP .)
+    LEFT            shift and go to state 7
+    RIGHT           shift and go to state 5
+    TOP             shift and go to state 4
+    DOWN            shift and go to state 10
 
+    top                            shift and go to state 3
+    right                          shift and go to state 9
+    direction                      shift and go to state 14
+    left                           shift and go to state 6
+    down                           shift and go to state 12
 
 state 14
 
