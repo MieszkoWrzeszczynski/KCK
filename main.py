@@ -17,15 +17,12 @@ def loadToken(fileName):
 #lexer
 tokens = (
     'GO',
-    'DIRECTION',
-    'NO',
     'NUMBER',
     'LEFT',
     'RIGHT',
     'TOP',
     'DOWN'
     )
-
 
 
 @TOKEN(loadToken("t_GO"))
@@ -58,14 +55,35 @@ def t_error(t):
 
 lexer = lex.lex()
 
+def p_move(p):
+    'move : GO direction'
+    print("p_move()")
+
+def p_direction(p):
+    '''direction : left
+                | right
+                | top
+                | down
+                '''
+    print("p_direction()")
 
 
-def p_expression_move(p):
-    '''expression : GO LEFT
-                    | GO RIGHT
-                    | GO TOP
-                    | GO DOWN'''
-    print("ok")
+def p_left(p):
+    'left : LEFT'
+    print("lewo")
+
+def p_right(p):
+    'right : RIGHT'
+    print("prawo")
+
+def p_top(p):
+    'top : TOP'
+    print("góra")
+
+def p_down(p):
+    'down : DOWN'
+    print("dół")
+
 
 def p_error(p):
     print("Nie rozumiem!")
@@ -75,8 +93,17 @@ yacc.yacc()
 
 # pętla główna
 while True:
-    s = input('> ')
-    yacc.parse(s.lower())
+    s = input('> ').lower()
+    if s == "q": break
+    yacc.parse(s)
+
+
+
+
+
+
+
+
 
 
 '''

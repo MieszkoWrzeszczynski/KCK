@@ -2,91 +2,141 @@ Created by PLY version 3.9 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    NUMBER
     NO
-    DIRECTION
+    NUMBER
 
 Grammar
 
-Rule 0     S' -> expression
-Rule 1     expression -> GO LEFT
-Rule 2     expression -> GO RIGHT
-Rule 3     expression -> GO TOP
-Rule 4     expression -> GO DOWN
+Rule 0     S' -> move
+Rule 1     move -> GO direction
+Rule 2     direction -> left
+Rule 3     direction -> right
+Rule 4     direction -> top
+Rule 5     direction -> down
+Rule 6     left -> LEFT
+Rule 7     right -> RIGHT
+Rule 8     top -> TOP
+Rule 9     down -> DOWN
 
 Terminals, with rules where they appear
 
-DIRECTION            : 
-DOWN                 : 4
-GO                   : 1 2 3 4
-LEFT                 : 1
+DOWN                 : 9
+GO                   : 1
+LEFT                 : 6
 NO                   : 
 NUMBER               : 
-RIGHT                : 2
-TOP                  : 3
+RIGHT                : 7
+TOP                  : 8
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 0
+direction            : 1
+down                 : 5
+left                 : 2
+move                 : 0
+right                : 3
+top                  : 4
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . expression
-    (1) expression -> . GO LEFT
-    (2) expression -> . GO RIGHT
-    (3) expression -> . GO TOP
-    (4) expression -> . GO DOWN
+    (0) S' -> . move
+    (1) move -> . GO direction
 
-    GO              shift and go to state 1
+    GO              shift and go to state 2
 
-    expression                     shift and go to state 2
+    move                           shift and go to state 1
 
 state 1
 
-    (1) expression -> GO . LEFT
-    (2) expression -> GO . RIGHT
-    (3) expression -> GO . TOP
-    (4) expression -> GO . DOWN
+    (0) S' -> move .
 
-    LEFT            shift and go to state 6
-    RIGHT           shift and go to state 5
-    TOP             shift and go to state 4
-    DOWN            shift and go to state 3
 
 
 state 2
 
-    (0) S' -> expression .
+    (1) move -> GO . direction
+    (2) direction -> . left
+    (3) direction -> . right
+    (4) direction -> . top
+    (5) direction -> . down
+    (6) left -> . LEFT
+    (7) right -> . RIGHT
+    (8) top -> . TOP
+    (9) down -> . DOWN
 
+    LEFT            shift and go to state 7
+    RIGHT           shift and go to state 11
+    TOP             shift and go to state 5
+    DOWN            shift and go to state 10
 
+    direction                      shift and go to state 6
+    top                            shift and go to state 8
+    right                          shift and go to state 4
+    left                           shift and go to state 9
+    down                           shift and go to state 3
 
 state 3
 
-    (4) expression -> GO DOWN .
+    (5) direction -> down .
 
-    $end            reduce using rule 4 (expression -> GO DOWN .)
+    $end            reduce using rule 5 (direction -> down .)
 
 
 state 4
 
-    (3) expression -> GO TOP .
+    (3) direction -> right .
 
-    $end            reduce using rule 3 (expression -> GO TOP .)
+    $end            reduce using rule 3 (direction -> right .)
 
 
 state 5
 
-    (2) expression -> GO RIGHT .
+    (8) top -> TOP .
 
-    $end            reduce using rule 2 (expression -> GO RIGHT .)
+    $end            reduce using rule 8 (top -> TOP .)
 
 
 state 6
 
-    (1) expression -> GO LEFT .
+    (1) move -> GO direction .
 
-    $end            reduce using rule 1 (expression -> GO LEFT .)
+    $end            reduce using rule 1 (move -> GO direction .)
+
+
+state 7
+
+    (6) left -> LEFT .
+
+    $end            reduce using rule 6 (left -> LEFT .)
+
+
+state 8
+
+    (4) direction -> top .
+
+    $end            reduce using rule 4 (direction -> top .)
+
+
+state 9
+
+    (2) direction -> left .
+
+    $end            reduce using rule 2 (direction -> left .)
+
+
+state 10
+
+    (9) down -> DOWN .
+
+    $end            reduce using rule 9 (down -> DOWN .)
+
+
+state 11
+
+    (7) right -> RIGHT .
+
+    $end            reduce using rule 7 (right -> RIGHT .)
 
