@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '8F2310281ED82B28DBF267E2769FD5E2'
+_lr_signature = 'DAC084A27AC91918BA148CF95CD801C9'
     
-_lr_action_items = {'NUMBER':([2,],[5,]),'NO':([0,],[1,]),'DIRECTION':([2,4,5,],[6,7,8,]),'$end':([3,6,7,8,],[0,-1,-2,-3,]),'GO':([0,1,],[2,4,]),}
+_lr_action_items = {'NUMBER':([3,],[6,]),'NO':([0,],[2,]),'DIRECTION':([4,6,],[7,8,]),'LEFT':([3,],[5,]),'GO':([0,2,],[3,4,]),'$end':([1,5,7,8,],[0,-1,-2,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,],[3,]),}
+_lr_goto_items = {'expression':([0,],[1,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,7 +26,7 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> GO DIRECTION','expression',2,'p_expression_move','main.py',36),
-  ('expression -> NO GO DIRECTION','expression',3,'p_expression_nmove','main.py',42),
-  ('expression -> GO NUMBER DIRECTION','expression',3,'p_expression_moves','main.py',47),
+  ('expression -> GO LEFT','expression',2,'p_expression_move','main.py',66),
+  ('expression -> NO GO DIRECTION','expression',3,'p_expression_nmove','main.py',71),
+  ('expression -> GO NUMBER DIRECTION','expression',3,'p_expression_moves','main.py',76),
 ]

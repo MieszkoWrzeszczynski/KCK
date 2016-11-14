@@ -1,8 +1,18 @@
 #!/usr/bin/python3
-
+#-*- coding: utf-8 -*-
+import os
 import ply.lex as lex
 import ply.yacc as yacc
 from ply.lex import TOKEN
+
+
+def loadToken(fileName):
+    dirPath = os.path.dirname(os.path.realpath(__file__))
+    dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
+    with open(dirPathTokens + fileName) as file:
+        return '|'.join(file.read().split())
+
+
 
 #lexer
 tokens = (
@@ -10,30 +20,38 @@ tokens = (
     'DIRECTION',
     'NO',
     'NUMBER',
+    'LEFT',
+    'RIGHT',
+    'TOP',
+    'DOWN'
     )
 
-t_GO = r'\b(i[sś][cć]|id[zź]|przesu[nń]|p[oó]jd[zź]|przejd[źz]|podejd[zź]|biegnij|pobiegnij|piegnij)\b'
 
 
-data = "lewo prawo gora dol dół dołem left right top down"
-data = data.split() #make data a list of keywords
-
-@TOKEN('|'.join(data))
-def t_DIRECTION(t):
+@TOKEN(loadToken("t_GO"))
+def t_GO(t):
     return t
 
+@TOKEN(loadToken("t_RIGHT"))
+def t_RIGHT(t):
+    return t
 
-#t_DIRECTION = r'\b(lew[oą]|praw[ąo]|g[oó]r([ąa]|[eę])|d[óo][lł])\b'
-#t_UNKNOWN = r'\w'
-t_NO = 'nie'
-#t_ignore = r' [woz] | do | na | si[eę]'
+@TOKEN(loadToken("t_LEFT"))
+def t_LEFT(t):
+    return t
 
+@TOKEN(loadToken("t_TOP"))
+def t_TOP(t):
+    return t
+
+@TOKEN(loadToken("t_DOWN"))
+def t_DOWN(t):
+    return t
 
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
-
 
 def t_error(t):
     t.lexer.skip(1)
@@ -41,37 +59,8 @@ def t_error(t):
 lexer = lex.lex()
 
 
-#parser
-def p_expression_move(p):
-   'expression : GO DIRECTION'
-   print('Ide w',p[2])
 
-
-def p_expression_nmove(p):
-    'expression : NO GO DIRECTION'
-    print('Nigdzie nie ide!')
-
-
-def p_expression_moves(p):
-    'expression : GO NUMBER DIRECTION'
-    print('Ide ' + str(p[2]) + " razy w " + p[3])
-
-
-def p_error(p):
-    print("Nie rozumiem!")
-
-
-yacc.yacc()
-
-'''
-# pętla główna
-while True:
-    s = input('> ')
-    yacc.parse(s.lower())
-
-'''
-
-data = "idz 3 razy w prawo lewo lewą top down"
+data = "idź w prawo"
 lexer.input(data)
 
 

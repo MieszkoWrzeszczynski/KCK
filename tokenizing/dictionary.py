@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 from os import listdir
 from os.path import isfile, join
 import os
@@ -20,9 +22,7 @@ def makeTokens():
                 wordList.extend(line)
 
         wordSet = set(wordList)
-
         # TODO   bez polskich znakow ++
-
         with open(dirPathTokens + 't_' + fileName.upper(), 'w+') as file:
             for item in wordSet:
                 file.write("%s " % item)
@@ -38,14 +38,15 @@ def combineTokens():
     print("t_Tokens: ", tokensFiles)
 
     for fileName in tokensFiles:
-        print(fileName)
         keyWords= ''
         with open(dirPathTokens + fileName, 'r') as file:
             for line in file:
                 keyWords+=line
-        with open(dirPathTokens + "t_combined", 'a+') as file:
-            file.write("\'%s\':\'%s\'\n" % (fileName,keyWords))
 
+        with open(dirPath + "\\t_combined", 'a+') as file:
+            file.write(u"\'{0:s}\':\'{1:s}\',\n".format(fileName, keyWords))
 
-makeTokens()
-combineTokens()
+#makeTokens()
+#combineTokens()
+tokDic = {}
+
