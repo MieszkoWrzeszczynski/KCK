@@ -1,6 +1,7 @@
 #parser
 def p_expression_move(p):
-   'expression : GO LEFT'
+
+   #'expression : GO LEFT'
    print('Ide w',p[2])
 
 

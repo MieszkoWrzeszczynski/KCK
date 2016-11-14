@@ -46,7 +46,5 @@ def combineTokens():
         with open(dirPath + "\\t_combined", 'a+') as file:
             file.write(u"\'{0:s}\':\'{1:s}\',\n".format(fileName, keyWords))
 
-#makeTokens()
-#combineTokens()
-tokDic = {}
+
 

@@ -60,9 +60,28 @@ lexer = lex.lex()
 
 
 
-data = "idź w prawo"
-lexer.input(data)
+def p_expression_move(p):
+    '''expression : GO LEFT
+                    | GO RIGHT
+                    | GO TOP
+                    | GO DOWN'''
+    print("ok")
 
+def p_error(p):
+    print("Nie rozumiem!")
+
+yacc.yacc()
+
+
+# pętla główna
+while True:
+    s = input('> ')
+    yacc.parse(s.lower())
+
+
+'''
+data = "idź lewy"
+lexer.input(data)
 
 # Tokenize
 while True:
@@ -70,5 +89,5 @@ while True:
     if not tok:
         break      # No more input
     print(tok.value," ", tok.type)
-
+'''
 
