@@ -70,19 +70,19 @@ def p_direction(p):
 
 def p_left(p):
     'left : LEFT'
-    print("lewo")
+    print("p_left")
 
 def p_right(p):
     'right : RIGHT'
-    print("prawo")
+    print("p_right")
 
 def p_top(p):
     'top : TOP'
-    print("góra")
+    print("p_top")
 
 def p_down(p):
     'down : DOWN'
-    print("dół")
+    print("p_down")
 
 
 def p_error(p):
