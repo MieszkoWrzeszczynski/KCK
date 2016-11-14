@@ -135,7 +135,7 @@ class App(arcade.Window):
         else:
             key = input
             steps = 1
-        print(key)
+        #print(key)
        
         
         if(key == LEFT):
@@ -146,11 +146,7 @@ class App(arcade.Window):
            self.moveNSteps(steps,65363)
         elif(key == BOTTOM):
            self.moveNSteps(steps,65364)
-
-        studentCollison = self.physics_engine.getCollided()
-        print(studentCollison)
-
-        if(key == ASK and studentCollison == "Jebłem w studenta" ):
+        elif(key == ASK and self.physics_engine.getCollided() == "Jebłem w studenta" ):
             print("Tak ściągam!")
         
 
