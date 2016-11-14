@@ -1,11 +1,9 @@
-import lex
-import yacc 
+import ply.lex as lex
+import ply.yacc as yacc
 import re
+import arcade
 
-LEFT = 1
-TOP = 2
-RIGHT = 3
-BOTTOM = 4
+
 ASK = 5
 
 
@@ -13,13 +11,13 @@ class Parser():
 
     def get(self):
         pl_words = {
-            'lewo': LEFT,
-            'lewą': LEFT,
-            'góra': TOP,
-            'górę': TOP,
-            'prawo':RIGHT,
-            'prawą':RIGHT,
-            'dół': BOTTOM,
+            'lewo': arcade.key.LEFT,
+            'lewą': arcade.key.LEFT,
+            'góra': arcade.key.UP,
+            'górę': arcade.key.UP,
+            'prawo':arcade.key.RIGHT,
+            'prawą':arcade.key.RIGHT,
+            'dół': arcade.key.DOWN,
             'ASK' : ASK
         }
 
