@@ -7,3 +7,7 @@ def normalize(input: str)->str:
 
 
 print (normalize("To jest przykładowy tekst"))
+
+tekst = input()
+tekst = tekst.lower()
+print(tekst.split())
