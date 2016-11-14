@@ -9,10 +9,7 @@ SCREEN_WIDTH = 620
 SCREEN_HEIGHT = 620
 MOVEMENT_SPEED = 15
 
-LEFT = 1
-TOP = 2
-RIGHT = 3
-BOTTOM = 4
+
 ASK = 5
 
 
@@ -138,14 +135,14 @@ class App(arcade.Window):
         #print(key)
        
         
-        if(key == LEFT):
-           self.moveNSteps(steps,65361)
-        elif(key == TOP):
-           self.moveNSteps(steps,65362)
-        elif(key == RIGHT):
-           self.moveNSteps(steps,65363)
-        elif(key == BOTTOM):
-           self.moveNSteps(steps,65364)
+        if(key == arcade.key.LEFT):
+           self.moveNSteps(steps,arcade.key.LEFT)
+        elif(key == arcade.key.UP):
+           self.moveNSteps(steps,arcade.key.UP)
+        elif(key == arcade.key.RIGHT):
+           self.moveNSteps(steps,arcade.key.RIGHT)
+        elif(key == arcade.key.DOWN):
+           self.moveNSteps(steps,arcade.key.DOWN)
         elif(key == ASK and self.physics_engine.getCollided() == "Jebłem w studenta" ):
             print("Tak ściągam!")
         
