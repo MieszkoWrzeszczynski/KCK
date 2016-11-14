@@ -1,40 +1,39 @@
 Created by PLY version 3.9 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    NUMBER
-
 Grammar
 
 Rule 0     S' -> move
 Rule 1     move -> GO direction
-Rule 2     direction -> left
-Rule 3     direction -> right
-Rule 4     direction -> top
-Rule 5     direction -> down
-Rule 6     left -> LEFT
-Rule 7     right -> RIGHT
-Rule 8     top -> TOP
-Rule 9     down -> DOWN
+Rule 2     move -> GO num direction
+Rule 3     num -> NUMBER
+Rule 4     direction -> left
+Rule 5     direction -> right
+Rule 6     direction -> top
+Rule 7     direction -> down
+Rule 8     left -> LEFT
+Rule 9     right -> RIGHT
+Rule 10    top -> TOP
+Rule 11    down -> DOWN
 
 Terminals, with rules where they appear
 
-DOWN                 : 9
-GO                   : 1
-LEFT                 : 6
-NUMBER               : 
-RIGHT                : 7
-TOP                  : 8
+DOWN                 : 11
+GO                   : 1 2
+LEFT                 : 8
+NUMBER               : 3
+RIGHT                : 9
+TOP                  : 10
 error                : 
 
 Nonterminals, with rules where they appear
 
-direction            : 1
-down                 : 5
-left                 : 2
+direction            : 1 2
+down                 : 7
+left                 : 4
 move                 : 0
-right                : 3
-top                  : 4
+num                  : 2
+right                : 5
+top                  : 6
 
 Parsing method: LALR
 
@@ -42,99 +41,144 @@ state 0
 
     (0) S' -> . move
     (1) move -> . GO direction
+    (2) move -> . GO num direction
 
-    GO              shift and go to state 2
+    GO              shift and go to state 1
 
-    move                           shift and go to state 1
+    move                           shift and go to state 2
 
 state 1
+
+    (1) move -> GO . direction
+    (2) move -> GO . num direction
+    (4) direction -> . left
+    (5) direction -> . right
+    (6) direction -> . top
+    (7) direction -> . down
+    (3) num -> . NUMBER
+    (8) left -> . LEFT
+    (9) right -> . RIGHT
+    (10) top -> . TOP
+    (11) down -> . DOWN
+
+    NUMBER          shift and go to state 5
+    LEFT            shift and go to state 9
+    RIGHT           shift and go to state 6
+    TOP             shift and go to state 13
+    DOWN            shift and go to state 10
+
+    top                            shift and go to state 7
+    left                           shift and go to state 3
+    num                            shift and go to state 8
+    direction                      shift and go to state 4
+    right                          shift and go to state 11
+    down                           shift and go to state 12
+
+state 2
 
     (0) S' -> move .
 
 
 
-state 2
-
-    (1) move -> GO . direction
-    (2) direction -> . left
-    (3) direction -> . right
-    (4) direction -> . top
-    (5) direction -> . down
-    (6) left -> . LEFT
-    (7) right -> . RIGHT
-    (8) top -> . TOP
-    (9) down -> . DOWN
-
-    LEFT            shift and go to state 6
-    RIGHT           shift and go to state 7
-    TOP             shift and go to state 5
-    DOWN            shift and go to state 10
-
-    direction                      shift and go to state 3
-    down                           shift and go to state 4
-    top                            shift and go to state 9
-    right                          shift and go to state 11
-    left                           shift and go to state 8
-
 state 3
+
+    (4) direction -> left .
+
+    $end            reduce using rule 4 (direction -> left .)
+
+
+state 4
 
     (1) move -> GO direction .
 
     $end            reduce using rule 1 (move -> GO direction .)
 
 
-state 4
-
-    (5) direction -> down .
-
-    $end            reduce using rule 5 (direction -> down .)
-
-
 state 5
 
-    (8) top -> TOP .
+    (3) num -> NUMBER .
 
-    $end            reduce using rule 8 (top -> TOP .)
+    LEFT            reduce using rule 3 (num -> NUMBER .)
+    RIGHT           reduce using rule 3 (num -> NUMBER .)
+    TOP             reduce using rule 3 (num -> NUMBER .)
+    DOWN            reduce using rule 3 (num -> NUMBER .)
 
 
 state 6
 
-    (6) left -> LEFT .
+    (9) right -> RIGHT .
 
-    $end            reduce using rule 6 (left -> LEFT .)
+    $end            reduce using rule 9 (right -> RIGHT .)
 
 
 state 7
 
-    (7) right -> RIGHT .
+    (6) direction -> top .
 
-    $end            reduce using rule 7 (right -> RIGHT .)
+    $end            reduce using rule 6 (direction -> top .)
 
 
 state 8
 
-    (2) direction -> left .
+    (2) move -> GO num . direction
+    (4) direction -> . left
+    (5) direction -> . right
+    (6) direction -> . top
+    (7) direction -> . down
+    (8) left -> . LEFT
+    (9) right -> . RIGHT
+    (10) top -> . TOP
+    (11) down -> . DOWN
 
-    $end            reduce using rule 2 (direction -> left .)
+    LEFT            shift and go to state 9
+    RIGHT           shift and go to state 6
+    TOP             shift and go to state 13
+    DOWN            shift and go to state 10
 
+    top                            shift and go to state 7
+    left                           shift and go to state 3
+    direction                      shift and go to state 14
+    right                          shift and go to state 11
+    down                           shift and go to state 12
 
 state 9
 
-    (4) direction -> top .
+    (8) left -> LEFT .
 
-    $end            reduce using rule 4 (direction -> top .)
+    $end            reduce using rule 8 (left -> LEFT .)
 
 
 state 10
 
-    (9) down -> DOWN .
+    (11) down -> DOWN .
 
-    $end            reduce using rule 9 (down -> DOWN .)
+    $end            reduce using rule 11 (down -> DOWN .)
 
 
 state 11
 
-    (3) direction -> right .
+    (5) direction -> right .
 
-    $end            reduce using rule 3 (direction -> right .)
+    $end            reduce using rule 5 (direction -> right .)
+
+
+state 12
+
+    (7) direction -> down .
+
+    $end            reduce using rule 7 (direction -> down .)
+
+
+state 13
+
+    (10) top -> TOP .
+
+    $end            reduce using rule 10 (top -> TOP .)
+
+
+state 14
+
+    (2) move -> GO num direction .
+
+    $end            reduce using rule 2 (move -> GO num direction .)
 

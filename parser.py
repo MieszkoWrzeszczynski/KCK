@@ -1,30 +1,130 @@
-#parser
-def p_expression_move(p):
-
-   #'expression : GO LEFT'
-   print('Ide w',p[2])
-
-
-def p_expression_nmove(p):
-    'expression : NO GO DIRECTION'
-    print('Nigdzie nie ide!')
+#!/usr/bin/python3
+#-*- coding: utf-8 -*-
+import os
+import ply.lex as lex
+import ply.yacc as yacc
+from ply.lex import TOKEN
 
 
-def p_expression_moves(p):
-    'expression : GO NUMBER DIRECTION'
-    print('Ide ' + str(p[2]) + " razy w " + p[3])
+def loadToken(fileName):
+    dirPath = os.path.dirname(os.path.realpath(__file__))
+    dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
+    with open(dirPathTokens + fileName) as file:
+        return '|'.join(file.read().split())
 
+
+
+#lexer
+tokens = (
+    'GO',
+    'NUMBER',
+    'LEFT',
+    'RIGHT',
+    'TOP',
+    'DOWN'
+    )
+
+
+@TOKEN(loadToken("t_GO"))
+def t_GO(t):
+    return t
+
+@TOKEN(loadToken("t_RIGHT"))
+def t_RIGHT(t):
+    return t
+
+@TOKEN(loadToken("t_LEFT"))
+def t_LEFT(t):
+    return t
+
+@TOKEN(loadToken("t_TOP"))
+def t_TOP(t):
+    return t
+
+@TOKEN(loadToken("t_DOWN"))
+def t_DOWN(t):
+    return t
+
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
+def t_error(t):
+    t.lexer.skip(1)
+
+lexer = lex.lex()
+
+def p_move(p):
+    '''move : GO direction
+            | GO num direction'''
+    print("p_move()")
+
+def p_num(p):
+    'num : NUMBER'
+    print("p_num()")
+
+def p_direction(p):
+    '''direction : left
+                | right
+                | top
+                | down
+                '''
+    print("p_direction()")
+
+
+def p_left(p):
+    'left : LEFT'
+    print("p_left")
+
+def p_right(p):
+    'right : RIGHT'
+    print("p_right")
+
+def p_top(p):
+    'top : TOP'
+    print("p_top")
+
+def p_down(p):
+    'down : DOWN'
+    print("p_down")
 
 def p_error(p):
     print("Nie rozumiem!")
 
-
 yacc.yacc()
 
-'''
+
+
+
+
+
+
 # pętla główna
 while True:
-    s = input('> ')
-    yacc.parse(s.lower())
+    s = input('> ').lower()
+    if s == "q": break
+    cos = yacc.parse(s)
+
+
+
+
+
+
+
+
+
+
 
 '''
+data = "idź lewy"
+lexer.input(data)
+
+# Tokenize
+while True:
+    tok = lexer.token()
+    if not tok:
+        break      # No more input
+    print(tok.value," ", tok.type)
+'''
+

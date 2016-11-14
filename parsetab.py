@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '98AFEF0863E3DBA0E0F5E2D9338223A6'
+_lr_signature = '0DB613FD8AFB9FBBB77CC9B77CA7AC83'
     
-_lr_action_items = {'$end':([1,3,4,5,6,7,8,9,10,11,],[0,-1,-5,-8,-6,-7,-2,-4,-9,-3,]),'RIGHT':([2,],[7,]),'DOWN':([2,],[10,]),'LEFT':([2,],[6,]),'GO':([0,],[2,]),'TOP':([2,],[5,]),}
+_lr_action_items = {'$end':([2,3,4,6,7,9,10,11,12,13,14,],[0,-4,-1,-9,-6,-8,-11,-5,-7,-10,-2,]),'RIGHT':([1,5,8,],[6,-3,6,]),'GO':([0,],[1,]),'DOWN':([1,5,8,],[10,-3,10,]),'NUMBER':([1,],[5,]),'LEFT':([1,5,8,],[9,-3,9,]),'TOP':([1,5,8,],[13,-3,13,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'direction':([2,],[3,]),'down':([2,],[4,]),'top':([2,],[9,]),'left':([2,],[8,]),'move':([0,],[1,]),'right':([2,],[11,]),}
+_lr_goto_items = {'top':([1,8,],[7,7,]),'move':([0,],[2,]),'left':([1,8,],[3,3,]),'num':([1,],[8,]),'direction':([1,8,],[4,14,]),'right':([1,8,],[11,11,]),'down':([1,8,],[12,12,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,13 +26,15 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> move","S'",1,None,None,None),
-  ('move -> GO direction','move',2,'p_move','main.py',59),
-  ('direction -> left','direction',1,'p_direction','main.py',63),
-  ('direction -> right','direction',1,'p_direction','main.py',64),
-  ('direction -> top','direction',1,'p_direction','main.py',65),
-  ('direction -> down','direction',1,'p_direction','main.py',66),
-  ('left -> LEFT','left',1,'p_left','main.py',72),
-  ('right -> RIGHT','right',1,'p_right','main.py',76),
-  ('top -> TOP','top',1,'p_top','main.py',80),
-  ('down -> DOWN','down',1,'p_down','main.py',84),
+  ('move -> GO direction','move',2,'p_move','parser.py',60),
+  ('move -> GO num direction','move',3,'p_move','parser.py',61),
+  ('num -> NUMBER','num',1,'p_num','parser.py',66),
+  ('direction -> left','direction',1,'p_direction','parser.py',70),
+  ('direction -> right','direction',1,'p_direction','parser.py',71),
+  ('direction -> top','direction',1,'p_direction','parser.py',72),
+  ('direction -> down','direction',1,'p_direction','parser.py',73),
+  ('left -> LEFT','left',1,'p_left','parser.py',79),
+  ('right -> RIGHT','right',1,'p_right','parser.py',83),
+  ('top -> TOP','top',1,'p_top','parser.py',87),
+  ('down -> DOWN','down',1,'p_down','parser.py',91),
 ]
