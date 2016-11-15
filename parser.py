@@ -9,8 +9,9 @@ class Parser():
 
     def loadToken(fileName):
         dirPath = os.path.dirname(os.path.realpath(__file__))
-        dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
-        with open(dirPathTokens + fileName) as file:
+        dirPathTokens = os.path.join(dirPath,"tokenizing","tokens")
+
+        with open(os.path.join(dirPathTokens, fileName)) as file:
             return '|'.join(file.read().split())
 
     #lexer

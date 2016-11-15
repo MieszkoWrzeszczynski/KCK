@@ -7,8 +7,8 @@ import os
 
 def makeTokens():
     dirPath = os.path.dirname(os.path.realpath(__file__))
-    dirPathRaw = dirPath + "\\raw\\"
-    dirPathTokens = dirPath + "\\tokens\\"
+    dirPathRaw = os.path.join(dirPath, "raw")
+    dirPathTokens = os.path.join(dirPath, "tokens")
 
     rawFiles = [f for f in listdir(dirPathRaw) if isfile(join(dirPathRaw, f))]
 
