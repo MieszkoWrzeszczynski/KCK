@@ -122,17 +122,20 @@ class Parser():
 
     yacc.yacc()
 
-    def get(self, string):
-        if string:
-            return yacc.parse(string)
+    def get(self):
+        s = input('> ').lower()
+        return yacc.parse(s)
 
+obj = Parser()
+print(obj.get())
 
+'''
 obj = Parser()
 while True:
     s = input('> ').lower()
     if s == "q": break
     print(obj.get(s))
-
+'''
 '''
 data = "idź lewy"
 lexer.input(data)
