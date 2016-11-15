@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '9A362C0575A6A1ED530247177BDBD835'
+_lr_signature = '2C0B0FD74D172464A3A460970D794973'
     
-_lr_action_items = {'TOP':([1,8,13,],[4,-3,4,]),'DOWN':([1,8,13,],[10,-3,10,]),'GO':([0,],[1,]),'RIGHT':([1,8,13,],[5,-3,5,]),'$end':([2,3,4,5,6,7,9,10,11,12,14,],[0,-6,-10,-9,-4,-8,-5,-11,-1,-7,-2,]),'LEFT':([1,8,13,],[7,-3,7,]),'NUMBER':([1,],[8,]),}
+_lr_action_items = {'TOP':([3,8,9,],[4,4,-4,]),'$end':([1,2,4,5,6,7,9,10,11,12,13,14,15,16,],[-13,0,-11,-1,-12,-8,-4,-6,-5,-9,-7,-10,-3,-2,]),'DOWN':([3,8,9,],[6,6,-4,]),'NUMBER':([3,4,5,6,7,10,11,12,13,14,],[9,-11,9,-12,-8,-6,-5,-9,-7,-10,]),'LEFT':([3,8,9,],[12,12,-4,]),'ASK':([0,],[1,]),'GO':([0,],[3,]),'RIGHT':([3,8,9,],[14,14,-4,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'top':([1,13,],[3,3,]),'move':([0,],[2,]),'direction':([1,13,],[11,14,]),'left':([1,13,],[6,6,]),'right':([1,13,],[9,9,]),'num':([1,],[13,]),'down':([1,13,],[12,12,]),}
+_lr_goto_items = {'direction':([3,8,],[5,16,]),'left':([3,8,],[11,11,]),'down':([3,8,],[7,7,]),'num':([3,5,],[8,15,]),'right':([3,8,],[10,10,]),'expression':([0,],[2,]),'top':([3,8,],[13,13,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -25,16 +25,18 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> move","S'",1,None,None,None),
-  ('move -> GO direction','move',2,'p_move','parser.py',58),
-  ('move -> GO num direction','move',3,'p_move','parser.py',59),
-  ('num -> NUMBER','num',1,'p_num','parser.py',63),
-  ('direction -> left','direction',1,'p_direction','parser.py',67),
-  ('direction -> right','direction',1,'p_direction','parser.py',68),
-  ('direction -> top','direction',1,'p_direction','parser.py',69),
-  ('direction -> down','direction',1,'p_direction','parser.py',70),
-  ('left -> LEFT','left',1,'p_left','parser.py',76),
-  ('right -> RIGHT','right',1,'p_right','parser.py',80),
-  ('top -> TOP','top',1,'p_top','parser.py',84),
-  ('down -> DOWN','down',1,'p_down','parser.py',88),
+  ("S' -> expression","S'",1,None,None,None),
+  ('expression -> GO direction','expression',2,'p_move','parser.py',60),
+  ('expression -> GO num direction','expression',3,'p_move','parser.py',61),
+  ('expression -> GO direction num','expression',3,'p_move','parser.py',62),
+  ('num -> NUMBER','num',1,'p_num','parser.py',75),
+  ('direction -> left','direction',1,'p_direction','parser.py',81),
+  ('direction -> right','direction',1,'p_direction','parser.py',82),
+  ('direction -> top','direction',1,'p_direction','parser.py',83),
+  ('direction -> down','direction',1,'p_direction','parser.py',84),
+  ('left -> LEFT','left',1,'p_left','parser.py',88),
+  ('right -> RIGHT','right',1,'p_right','parser.py',95),
+  ('top -> TOP','top',1,'p_top','parser.py',101),
+  ('down -> DOWN','down',1,'p_down','parser.py',107),
+  ('expression -> ASK','expression',1,'p_expression_ask','parser.py',113),
 ]

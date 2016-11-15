@@ -7,8 +7,6 @@ from ply.lex import TOKEN
 
 class Parser():
 
-    output = {}
-
     def loadToken(fileName):
         dirPath = os.path.dirname(os.path.realpath(__file__))
         dirPathTokens = dirPath + "\\tokenizing\\tokens\\"
@@ -22,9 +20,9 @@ class Parser():
         'LEFT',
         'RIGHT',
         'TOP',
-        'DOWN'
+        'DOWN',
+        'ASK'
         )
-
 
     @TOKEN(loadToken("t_GO"))
     def t_GO(t):
@@ -51,70 +49,88 @@ class Parser():
         t.value = int(t.value)
         return t
 
+    t_ASK = r'[sś]ci[aą]ga'
+
     def t_error(t):
         t.lexer.skip(1)
 
     lexer = lex.lex()
 
     def p_move(p):
-        '''move : GO direction
-                | GO num direction'''
-        print("p_move() ", len(p))
-       # if(len(p))
+        '''expression  : GO direction
+                | GO num direction
+                | GO direction num'''
+        global reply, cmd
+        cmd="move"
+        #print("p_move")
+        if len(p) is 3:
+            global steps
+            steps=1
+            reply = "Idę w " + reply
+        else:
+            reply = "Idę " + str(steps) + " razy w " + reply
+        p[0] = ("move",dir,steps, reply)
 
     def p_num(p):
         'num : NUMBER'
-        print("p_num()")
+        #print("p_num")
+        global steps
+        steps=p[1]
 
     def p_direction(p):
         '''direction : left
                     | right
                     | top
-                    | down
-                    '''
-        print("p_direction()")
-
+                    | down'''
+        #print("p_direction()")
 
     def p_left(p):
         'left : LEFT'
-        print("p_left")
+        global dir, reply
+        reply="lewo"
+        dir="left"
+        #print("Idę w lewo")
 
     def p_right(p):
         'right : RIGHT'
-        print("p_right")
+        global dir
+        dir = "right"
+        #print("Idę w prawo")
 
     def p_top(p):
         'top : TOP'
-        print("p_top")
+        global dir
+        dir = "top"
+        #print("Idę do góry")
 
     def p_down(p):
         'down : DOWN'
-        print("p_down")
+        global dir
+        dir = "down"
+        #print("Idę na dół")
+
+    def p_expression_ask(p):
+        'expression  : ASK '
+        print("Rozpoznałem pytanie")
+        p[0] = 'ASK'
 
     def p_error(p):
         print("Nie rozumiem!")
 
+
+
     yacc.yacc()
 
+    def get(self, string):
+        if string:
+            return yacc.parse(string)
 
 
-
-
-    # pętla główna
-    while True:
-        s = input('> ').lower()
-        if s == "q": break
-        yacc.parse(s)
-
-
-
-
-
-
-
-
-
-
+obj = Parser()
+while True:
+    s = input('> ').lower()
+    if s == "q": break
+    print(obj.get(s))
 
 '''
 data = "idź lewy"
