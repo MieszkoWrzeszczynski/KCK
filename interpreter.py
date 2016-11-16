@@ -1,11 +1,12 @@
 from rivescript import RiveScript
+from polDel import polishDel
 
 bot = RiveScript()
 bot.load_directory("./resources")
 bot.sort_replies()
 
 while True:
-    msg = input('Profesor> ')
+    msg = polishDel(input('Profesor> '))
     if msg == '/quit':
         quit()
 
