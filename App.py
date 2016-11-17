@@ -3,15 +3,13 @@ from Student import Student
 from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
-
+from rivescript import RiveScript
 SPRITE_SCALING = 1
 SCREEN_WIDTH = 620
 SCREEN_HEIGHT = 620
 MOVEMENT_SPEED = 15
 
-
-ASK = 5
-
+    
 
 
 class App(arcade.Window):
@@ -23,7 +21,10 @@ class App(arcade.Window):
         self.table_list = None
         self.score = 0
         self.physics_engine = None
-        self.input = Parser()
+        self.parser = Parser()
+        self.bot = RiveScript()
+        self.bot.load_directory("./bot_resources")
+        self.bot.sort_replies()
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -36,6 +37,10 @@ class App(arcade.Window):
         map = self.get_map()
         self.drawMap(map)
         self.physics_engine = Physics(self.lecturer,self.items)
+
+    def botAnswer(self,input):
+        reply = self.bot.reply("localuser", input)
+        print('Student: ', reply)
 
     def get_map(self):
         map_file = open("maps/map.csv")
@@ -119,32 +124,24 @@ class App(arcade.Window):
             self.on_draw()
             studentCollison = self.physics_engine.getCollided()
 
-        print(studentCollison)
+        if(studentCollison):
+            print("Zderzyłem się ze studentem!")
 
 
     def animate(self, dt):
         """ Movement and game logic """
-        input = self.input.get()
+        input = self.parser.get()
+
+        if(input["command"] == "move"):
+            print(input["reply"])
+            self.moveNSteps(input["steps"],input["direction"])
+        elif((input["command"] == "ask") and (self.physics_engine.getCollided())):
+            print(self.botAnswer("sciaganie"))
         
-        if(type(input) is tuple):
-            key = int(input[0])
-            steps = int(input[1])
-        else:
-            key = input
-            steps = 1
-        #print(key)
-       
-        
-        if(key == arcade.key.LEFT):
-           self.moveNSteps(steps,arcade.key.LEFT)
-        elif(key == arcade.key.UP):
-           self.moveNSteps(steps,arcade.key.UP)
-        elif(key == arcade.key.RIGHT):
-           self.moveNSteps(steps,arcade.key.RIGHT)
-        elif(key == arcade.key.DOWN):
-           self.moveNSteps(steps,arcade.key.DOWN)
-        elif(key == ASK and self.physics_engine.getCollided() == "Jebłem w studenta" ):
-            print("Tak ściągam!")
+        # print(input["command"])
+        # print(input["direction"])
+        # print(input["steps"])
+        # print(input["reply"])
         
 
 

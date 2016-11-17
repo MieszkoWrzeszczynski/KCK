@@ -8,9 +8,6 @@ class Physics(arcade.PhysicsEngineSimple):
 
     def __init__(self, player_sprite, walls):
         super().__init__(player_sprite, walls)
-        """
-        Constructor.
-        """
         self.collision = None
 
     def getCollided(self):
@@ -31,7 +28,7 @@ class Physics(arcade.PhysicsEngineSimple):
 
         # If we hit a wall, move so the edges are at the same point
         if len(hit_list) > 0:
-            self.collision = "Jebłem w studenta"
+            self.collision = True
             if self.player_sprite.change_x > 0:
                 for item in hit_list:
                     self.player_sprite.right = min(item.left,
@@ -54,7 +51,7 @@ class Physics(arcade.PhysicsEngineSimple):
 
         # If we hit a wall, move so the edges are at the same point
         if len(hit_list) > 0:
-            self.collision = "Jebłem w studenta"
+            self.collision = True
             if self.player_sprite.change_y > 0:
                 for item in hit_list:
                     self.player_sprite.top = min(item.bottom,
