@@ -1,0 +1,8 @@
+arcade==0.9.9.post54
+numpy==1.11.2
+Pillow==3.4.1
+pkg-resources==0.0.0
+ply==3.9
+pyglet==1.2.4
+rivescript==1.14.2
+six==1.10.0
