@@ -4,7 +4,6 @@ roguelike-indoor-pack/
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
-__pycache__/
 *.out
 parsetab.py
 input.log
@@ -50,3 +49,4 @@ parsetab.py
 parser.out 
 yacc.py 
 lex.py
+__pycache__/
