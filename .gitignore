@@ -6,6 +6,8 @@ roguelike-indoor-pack/
 .idea/tasks.xml
 __pycache__/
 *.out
+parsetab.py
+input.log
 # Sensitive or high-churn files:
 .idea/dataSources.ids
 .idea/dataSources.xml

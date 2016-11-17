@@ -4,12 +4,6 @@ from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
 from rivescript import RiveScript
-SPRITE_SCALING = 1
-SCREEN_WIDTH = 620
-SCREEN_HEIGHT = 620
-MOVEMENT_SPEED = 15
-
-    
 
 
 class App(arcade.Window):
@@ -25,10 +19,12 @@ class App(arcade.Window):
         self.bot = RiveScript()
         self.bot.load_directory("./bot_resources")
         self.bot.sort_replies()
+        self.MOVEMENT_SPEED = 15
+        self.SPRITE_SCALING = 1
 
     def setup(self):
         """ Set up the game and initialize the variables. """
-        self.lecturer = Lecturer(120,250,"images/lecturer.png", 1)
+        self.lecturer = Lecturer(120,250,"images/lecturer.png", self.SPRITE_SCALING)
         self.students = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
         self.table_list = arcade.SpriteList()
@@ -60,14 +56,14 @@ class App(arcade.Window):
         for line in map:
             for table in line:
                 if(table):
-                    table = arcade.Sprite("images/table.png", 1)
+                    table = arcade.Sprite("images/table.png",self.SPRITE_SCALING )
                     table.width = 32;
                     table.height = 32;
                     table.center_x = position_x
                     table.center_y = position_y
                     self.items.append(table)
 
-                    student = arcade.Sprite("images/student.png", 1)
+                    student = Student(position_x,position_y + 32, "images/student.png", self.SPRITE_SCALING,32)
                     student.width = 32;
                     student.height = 28;
                     student.center_x = position_x 
@@ -85,7 +81,7 @@ class App(arcade.Window):
         
         for x in range(11):
             for y in range(11):
-                background_sprite = arcade.Sprite("images/background.png", 1)
+                background_sprite = arcade.Sprite("images/background.png", self.SPRITE_SCALING)
                 background_sprite.width = 62;
                 background_sprite.height = 62;
                 background_sprite.center_x = position_x
@@ -141,19 +137,18 @@ class App(arcade.Window):
         # print(input["command"])
         # print(input["direction"])
         # print(input["steps"])
-        # print(input["reply"])
-        
+        # print(input["reply"])     
 
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
-            self.lecturer.change_y = MOVEMENT_SPEED
+            self.lecturer.change_y = self.MOVEMENT_SPEED
         elif key == arcade.key.DOWN:
-            self.lecturer.change_y = -MOVEMENT_SPEED
+            self.lecturer.change_y = -self.MOVEMENT_SPEED
         elif key == arcade.key.LEFT:
-            self.lecturer.change_x = -MOVEMENT_SPEED
+            self.lecturer.change_x = -self.MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
-            self.lecturer.change_x = MOVEMENT_SPEED
+            self.lecturer.change_x = self.MOVEMENT_SPEED
 
 
     def on_key_release(self, key, modifiers):
@@ -163,7 +158,7 @@ class App(arcade.Window):
             self.lecturer.change_x = 0
 
 def main():
-    window = App(SCREEN_WIDTH, SCREEN_HEIGHT)
+    window = App(620,620)
     window.setup()
     arcade.run()
 
