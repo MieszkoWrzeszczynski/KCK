@@ -4,8 +4,8 @@ roguelike-indoor-pack/
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
-__pycache__
-
+__pycache__/
+*.out
 # Sensitive or high-churn files:
 .idea/dataSources.ids
 .idea/dataSources.xml
