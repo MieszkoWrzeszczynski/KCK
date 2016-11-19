@@ -33,7 +33,7 @@ def makeTokens():
 
 def combineTokens():
     dirPath = os.path.dirname(os.path.realpath(__file__))
-    dirPathTokens = dirPath + "\\tokens\\"
+    dirPathTokens = os.path.join(dirPath, "tokens")
     tokensFiles = [f for f in listdir(dirPathTokens) if isfile(join(dirPathTokens, f))]
     print("t_Tokens: ", tokensFiles)
 
@@ -43,8 +43,9 @@ def combineTokens():
             for line in file:
                 keyWords+=line
 
-        with open(dirPath + "\\t_combined", 'a+') as file:
+        with open(os.path.join(dirPath, "t_combined"), 'a+') as file:
             file.write(u"\'{0:s}\':\'{1:s}\',\n".format(fileName, keyWords))
 
 
 
+combineTokens()
