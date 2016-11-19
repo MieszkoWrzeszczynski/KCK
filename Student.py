@@ -6,6 +6,7 @@ class Student(arcade.Sprite):
     id = 0
 
     def __init__(self,x,y, filename, sprite_scaling,points,name):
+
         super().__init__(filename, sprite_scaling)
         self.center_x = x
         self.center_y = y
@@ -18,5 +19,6 @@ class Student(arcade.Sprite):
         self.name = name
 
     def answer(self,input):
+
         reply = self.brain.reply("localuser", polishDel(input))
         print('Student ' + self.name + ':', reply)

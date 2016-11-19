@@ -6,9 +6,12 @@ from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
 
+
+
 class App(arcade.Window):
 
     def __init__(self, width, height):
+        
         super().__init__(width, height, title="Egzaminator")
         self.background_list = None
         self.lecturer = None
@@ -21,6 +24,7 @@ class App(arcade.Window):
         self.students_name = None
 
     def setup(self):
+
         """ Set up the game and initialize the variables. """
         self.lecturer = Lecturer(120,250,"images/lecturer.png", self.SPRITE_SCALING)
         self.students = arcade.SpriteList()
@@ -35,6 +39,7 @@ class App(arcade.Window):
         
 
     def get_map(self):
+
         map_file = open("maps/map.csv")
         map_array = []
         for line in map_file:
@@ -46,6 +51,7 @@ class App(arcade.Window):
         return map_array
 
     def drawMap(self,map):
+
         position_x = 0;
         position_y = 15;
 
@@ -75,6 +81,7 @@ class App(arcade.Window):
             position_x = 0
 
     def drawBackground(self):
+
         position_x = 0;
         position_y = 0;
         
@@ -92,7 +99,7 @@ class App(arcade.Window):
             position_x = 0
 
     def on_draw(self):
-        # This command has to happen before we start drawing
+
         arcade.start_render()
 
         self.background_list.draw()
@@ -119,29 +126,30 @@ class App(arcade.Window):
             print("Zderzyłem się ze studentem nr: " + str(collided["student_id"]))
 
     def animate(self, dt):
-        """ Movement and game logic """
 
         input = self.parser.get()
-        physics = self.physics_engine.getCollided()
-
+       
         if(input["command"] == "move"):
             self.moveNSteps(input["steps"],input["direction"])
-        elif(input["command"] == "ask" and physics["collison"]):
-            print(self.students[physics["student_id"]].answer(input["natural_input"]))
+        elif(input["command"] == "ask"):
+            physics = self.physics_engine.getCollided()
+            if(physics["collision"]):
+                print(self.students[physics["student_id"]].answer(input["natural_input"]))
 
     def on_key_press(self, key, modifiers):
         
         if key == arcade.key.UP and self.lecturer.center_y < 590:
             self.lecturer.change_y = self.MOVEMENT_SPEED
-        elif key == arcade.key.DOWN and self.lecturer.center_y > 32:
+        elif key == arcade.key.DOWN and self.lecturer.center_y > 0:
             self.lecturer.change_y = -self.MOVEMENT_SPEED
-        elif key == arcade.key.LEFT and self.lecturer.center_x > 32:
+        elif key == arcade.key.LEFT and self.lecturer.center_x > 0:
             self.lecturer.change_x = -self.MOVEMENT_SPEED
         elif key == arcade.key.RIGHT and self.lecturer.center_x < 590:
             self.lecturer.change_x = self.MOVEMENT_SPEED
 
 
     def on_key_release(self, key, modifiers):
+
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.lecturer.change_y = 0
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:

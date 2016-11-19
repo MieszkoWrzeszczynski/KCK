@@ -14,7 +14,7 @@ class Physics(arcade.PhysicsEngineSimple):
     def getCollided(self):
         return {
             'collision' : self.collision,
-            'student_id' : self.id_collided_object 
+            'student_id' : self.id_collided_object
         }
 
     def update(self):
