@@ -127,20 +127,14 @@ class App(arcade.Window):
     def animate(self, dt):
         """ Movement and game logic """
         input = self.parser.get()
-
         if(input["command"] == "move"):
-            print(input["reply"])
             self.moveNSteps(input["steps"],input["direction"])
         elif((input["command"] == "ask") and (self.physics_engine.getCollided())):
-            print(self.botAnswer("sciaganie"))
-        
-        # print(input["command"])
-        # print(input["direction"])
-        # print(input["steps"])
-        # print(input["reply"])     
-
+            print(input["natural_input"])
+            print(self.botAnswer(input["natural_input"]))
 
     def on_key_press(self, key, modifiers):
+        
         if key == arcade.key.UP:
             self.lecturer.change_y = self.MOVEMENT_SPEED
         elif key == arcade.key.DOWN:

@@ -12,6 +12,7 @@ class Parser():
         self.reply = ""
         self.steps = 0
         self.dir = ""
+        self.natural_input = ""
 
     def loadToken(self,fileName):
         dirPath = os.path.dirname(os.path.realpath(__file__))
@@ -76,12 +77,13 @@ class Parser():
                 self.reply = "Idę" 
             else:
                 #self.reply = "Idę " + str(self.steps) + " razy w " + self.reply
-                self.reply = "Już idę!" 
+                self.reply = "Już idę!"
             p[0] = {
                 "command" : "move",
                 "direction" : self.dir,
                 "steps" : self.steps,
-                "reply": self.reply
+                "reply": self.reply,
+                "natural_input": self.natural_input
             }
 
         def p_num(p):
@@ -111,18 +113,17 @@ class Parser():
             'down : DOWN'
             self.dir = arcade.key.DOWN
 
-
         def p_expression_ask(p):
             'expression  : ASK '
-            p[0] = { "command" : "ask"}
+            p[0] = { "command" : "ask","natural_input": self.natural_input}
 
         def p_error(p):
              print("Nie rozumiem!")
 
         yacc.yacc()
 
-        s = input('> ').lower()
-        if(yacc.parse(s) is None):
+        self.natural_input = input('> ').lower()
+        if(yacc.parse(self.natural_input) is None):
             return { "command" : "error"}
         else:
-            return yacc.parse(s)
+            return yacc.parse(self.natural_input)
