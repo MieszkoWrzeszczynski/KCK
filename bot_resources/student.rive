@@ -1,18 +1,25 @@
 ! version = 2.0
 
-+ sciaganie
++ [*] sciaganie
 - Tak sciagam!
 - moze
 - ty mi powiedz
 - ja? chyba zartujesz!
 - ten obok sciaga!
 
-
-+ czy pan sciaga
-- tak 
-- nie
++ sciagasz [*]
+- Tak sciagam!
 - moze
-- a co cie to obchodzi
+- ty mi powiedz
+- ja? chyba zartujesz!
+- ten obok sciaga!
+
++ [*] sciaga [*]
+- Tak sciagam!
+- moze
+- ty mi powiedz
+- ja? chyba zartujesz!
+- ten obok sciaga!
 
 + *
 - Bardzo ciekawe, powiedź mi coś więcej na ten temat!

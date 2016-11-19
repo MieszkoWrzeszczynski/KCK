@@ -1,10 +1,10 @@
 import arcade
+import random
+
 from Student import Student
 from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
-from rivescript import RiveScript
-
 
 class App(arcade.Window):
 
@@ -16,11 +16,9 @@ class App(arcade.Window):
         self.score = 0
         self.physics_engine = None
         self.parser = Parser()
-        self.bot = RiveScript()
-        self.bot.load_directory("./bot_resources")
-        self.bot.sort_replies()
         self.MOVEMENT_SPEED = 15
         self.SPRITE_SCALING = 1
+        self.students_name = None
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -29,14 +27,12 @@ class App(arcade.Window):
         self.background_list = arcade.SpriteList()
         self.table_list = arcade.SpriteList()
         self.items = arcade.SpriteList()
+        self.students_name = ["Jan","Stanisław","Andrzej","Józef","Tadeusz","Jerzy","Zbigniew","Krzysztof","Henryk","Ryszard","Kazimierz","Marek","Marian","Piotr","Janusz"]
         self.drawBackground()
-        map = self.get_map()
-        self.drawMap(map)
+        self.map = self.get_map()
+        self.drawMap(self.map)
         self.physics_engine = Physics(self.lecturer,self.items)
-
-    def botAnswer(self,input):
-        reply = self.bot.reply("localuser", input)
-        print('Student: ', reply)
+        
 
     def get_map(self):
         map_file = open("maps/map.csv")
@@ -51,25 +47,28 @@ class App(arcade.Window):
 
     def drawMap(self,map):
         position_x = 0;
-        position_y = 32;
+        position_y = 15;
 
-        for line in map:
+        for line in self.map:
             for table in line:
                 if(table):
+                    student = Student(position_x,position_y + 32,
+                    "images/student.png", self.SPRITE_SCALING,32,random.choice(self.students_name))
+                    student.width = 32;
+                    student.height = 28;
+                    id = Student.id;
+                    student.center_x = position_x 
+                    student.center_y = position_y + 32
+                    self.items.append(student)
+                    self.students.append(student)
+
                     table = arcade.Sprite("images/table.png",self.SPRITE_SCALING )
                     table.width = 32;
                     table.height = 32;
                     table.center_x = position_x
                     table.center_y = position_y
+                    table.id = Student.id;
                     self.items.append(table)
-
-                    student = Student(position_x,position_y + 32, "images/student.png", self.SPRITE_SCALING,32)
-                    student.width = 32;
-                    student.height = 28;
-                    student.center_x = position_x 
-                    student.center_y = position_y + 32
-                    self.items.append(student)
-                    self.students.append(student)
 
                 position_x += 62
             position_y += 62
@@ -92,11 +91,7 @@ class App(arcade.Window):
             position_y += 62
             position_x = 0
 
-
     def on_draw(self):
-        """
-        Render the screen.
-        """
         # This command has to happen before we start drawing
         arcade.start_render()
 
@@ -118,30 +113,31 @@ class App(arcade.Window):
             self.on_key_press(direct,0)
             self.physics_engine.update()
             self.on_draw()
-            studentCollison = self.physics_engine.getCollided()
+            collided = self.physics_engine.getCollided()
 
-        if(studentCollison):
-            print("Zderzyłem się ze studentem!")
-
+        if(collided["collision"]):
+            print("Zderzyłem się ze studentem nr: " + str(collided["student_id"]))
 
     def animate(self, dt):
         """ Movement and game logic """
+
         input = self.parser.get()
+        physics = self.physics_engine.getCollided()
+
         if(input["command"] == "move"):
             self.moveNSteps(input["steps"],input["direction"])
-        elif((input["command"] == "ask") and (self.physics_engine.getCollided())):
-            print(input["natural_input"])
-            print(self.botAnswer(input["natural_input"]))
+        elif(input["command"] == "ask" and physics["collison"]):
+            print(self.students[physics["student_id"]].answer(input["natural_input"]))
 
     def on_key_press(self, key, modifiers):
         
-        if key == arcade.key.UP:
+        if key == arcade.key.UP and self.lecturer.center_y < 590:
             self.lecturer.change_y = self.MOVEMENT_SPEED
-        elif key == arcade.key.DOWN:
+        elif key == arcade.key.DOWN and self.lecturer.center_y > 32:
             self.lecturer.change_y = -self.MOVEMENT_SPEED
-        elif key == arcade.key.LEFT:
+        elif key == arcade.key.LEFT and self.lecturer.center_x > 32:
             self.lecturer.change_x = -self.MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
+        elif key == arcade.key.RIGHT and self.lecturer.center_x < 590:
             self.lecturer.change_x = self.MOVEMENT_SPEED
 
 
