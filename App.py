@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#test
 
 import arcade
 import random
