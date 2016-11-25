@@ -3,22 +3,22 @@
 // Code
 
 + [*] (sciaganie|sciagasz|sciaga) [*]
-* <get cheat> == yes =>{random}Tak, ściągam!|Ten obok sciaga!|Yyyy, nieeee...{/random}
-* <get cheat> == no =>{random}Skądże!|Brzydzę się ściąganiem!|Jestem uczciwym człowiekiem!|Jakże bym śmiał!{/random}
+* <bot cheat> == yes =>{random}Tak, ściągam!|Ten obok sciaga!|Yyyy, nieeee...{/random}
+* <bot cheat> == no =>{random}Skądże!|Brzydzę się ściąganiem!|Jestem uczciwym człowiekiem!|Jakże bym śmiał!{/random}
 
 + [*] jak [*] idzie
-- Idzie mi dość <get status>.
-- Szczerze mówiąc, to jest dość <get status>.
-- Nie jest <get nstatus>...
+- Idzie mi dość <bot status>.
+- Szczerze mówiąc, to jest dość <bot status>.
+- Nie jest <bot nstatus>...
 
 + [*] (podpowiedziec|podpowiedz) [*]
-* <get prompt> == yes =>{random}Prosiłbym!|Tak!|Bardzo pana proszę!{/random}
-* <get prompt> == no =>{random}Brzydzę się takimi praktykami!|W żadnym razie.|Sam sobie poradzę.{/random}
+* <bot prompt> == yes =>{random}Prosiłbym!|Tak!|Bardzo pana proszę!{/random}
+* <bot prompt> == no =>{random}Brzydzę się takimi praktykami!|W żadnym razie.|Sam sobie poradzę.{/random}
 
 + [*] jak [*] na imie [*]
-- Mam na imię <get name>.
-- Moje imię to <get name>.
-- Jestem <get name> <get surname>.
+- Mam na imię <bot name>.
+- Moje imię to <bot name>.
+- Jestem <bot name> <bot surname>.
 
 + *
 - Proszę pozwolić mi się skupić na pracy!
