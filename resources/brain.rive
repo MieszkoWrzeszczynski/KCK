@@ -10,5 +10,5 @@
 ! var job = student
 ! var status = kiepsko
 ! var nstatus = dobrze
-! var podpowiedz = tak
-! var sciaga = tak
+! var prompt = yes
+! var cheat = yes

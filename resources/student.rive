@@ -12,8 +12,8 @@
 - Nie jest <get nstatus>...
 
 + [*] (podpowiedziec|podpowiedz) [*]
-* <get prompt> == yes => {random}Prosiłbym!|Tak!|Bardzo pana proszę!{/random}
-* <get prompt> == no => {random}Brzydzę sie takimi praktykami!|W żadnym razie.|Sam sobie poradzę.{/random}
+* <get prompt> == yes =>{random}Prosiłbym!|Tak!|Bardzo pana proszę!{/random}
+* <get prompt> == no =>{random}Brzydzę się takimi praktykami!|W żadnym razie.|Sam sobie poradzę.{/random}
 
 + [*] jak [*] na imie [*]
 - Mam na imię <get name>.
