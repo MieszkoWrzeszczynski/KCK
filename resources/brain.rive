@@ -1,9 +1,14 @@
 ! version = 2.0
 
 // Bot variables
+
 ! var name = krzysiu
 ! var surname = jerzyna
 ! var age  = 24
-! var sex      = mężczyzna
+! var sex  = mężczyzna
 ! var location = Poznań
 ! var job = student
+! var status = kiepsko
+! var nstatus = dobrze
+! var podpowiedz = tak
+! var sciaga = tak

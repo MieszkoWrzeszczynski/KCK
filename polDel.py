@@ -1,5 +1,6 @@
 dict = {
     'ą' : 'a',
+    'ę' : 'e',
     'ć' : 'c',
     'ł' : 'l',
     'ń' : 'n',
@@ -10,11 +11,4 @@ dict = {
 }
 
 def polishDel(sentence):
-    output = ''
-    sentence = sentence.lower()
-    for words in sentence:
-        for char in words:
-            if char in dict:
-                char = dict[char]
-            output = output + char;
-    return output
+    return ''.join(list(map(lambda x: dict[x] if x in dict else x, sentence.lower())))
