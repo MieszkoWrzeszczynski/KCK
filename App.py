@@ -1,11 +1,11 @@
 import arcade
 import random
+from random import randint
 
 from Student import Student
 from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
-
 
 
 class App(arcade.Window):
@@ -59,7 +59,7 @@ class App(arcade.Window):
             for table in line:
                 if(table):
                     student = Student(position_x,position_y + 32,
-                    "images/student.png", self.SPRITE_SCALING,32,random.choice(self.students_name))
+                    "images/student.png", self.SPRITE_SCALING,randint(100,200),random.choice(self.students_name))
                     student.width = 32;
                     student.height = 28;
                     id = Student.id;
@@ -140,9 +140,9 @@ class App(arcade.Window):
         
         if key == arcade.key.UP and self.lecturer.center_y < 590:
             self.lecturer.change_y = self.MOVEMENT_SPEED
-        elif key == arcade.key.DOWN and self.lecturer.center_y > 0:
+        elif key == arcade.key.DOWN and self.lecturer.center_y > 30:
             self.lecturer.change_y = -self.MOVEMENT_SPEED
-        elif key == arcade.key.LEFT and self.lecturer.center_x > 0:
+        elif key == arcade.key.LEFT and self.lecturer.center_x > 30:
             self.lecturer.change_x = -self.MOVEMENT_SPEED
         elif key == arcade.key.RIGHT and self.lecturer.center_x < 590:
             self.lecturer.change_x = self.MOVEMENT_SPEED

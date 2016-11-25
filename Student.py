@@ -1,6 +1,9 @@
 import arcade
+import re
+
 from rivescript import RiveScript
 from polDel import polishDel
+
 
 class Student(arcade.Sprite):
     id = 0
@@ -11,7 +14,8 @@ class Student(arcade.Sprite):
         self.center_x = x
         self.center_y = y
         self.exam_points = points
-        self.brain = RiveScript()
+        self.brain = RiveScript(utf8=True)
+        self.brain.unicode_punctuation = re.compile(r'[.,!?;*]')
         self.brain.load_directory("./bot_resources")
         self.brain.sort_replies()
         Student.id =  Student.id + 1

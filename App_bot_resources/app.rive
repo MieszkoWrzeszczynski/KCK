@@ -1,0 +1,13 @@
+! version = 2.0
+
+// Bot variables
+! var name = Egzaminator
+! var master = Mieszko Wrzeszczyński
+! var fullname = Andrzej Trump
+! var sex      = mężczyzna
+! var location = Poznań
+! var job      = bot
+
++ (witam|witaj|czesc|hej|hejka|heja|siemasz|siema|siemanko|dzien dobry|siemka|siemson) [*]
+- {random}Dzień dobry|Witam serdecznie{/random}. {random}Wołają na mnie |Mówią na mnie {/random}
+^<bot name> <bot surname>. {random}

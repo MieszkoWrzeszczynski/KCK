@@ -1,13 +1,11 @@
 ! version = 2.0
 
-+ [*] sciaganie
++ [*] (sciaganie|sciagasz|sciaga) [*]
 - {random}Tak sciagam!|moze|ty mi powiedz|ja? chyba zartujesz!|ten obok sciaga!{/random}
 
-+ [*] sciagasz [*]
-- {@ sciaganie}
-
-+ [*] sciaga [*]
-- {@ sciaganie}
++ *
+% (Tak sciagam!|moze|ty mi powiedz|ja? chyba zartujesz!|ten obok sciaga!)
+- Już się pytałeś
 
 + *
 - Bardzo ciekawe, powiedź mi coś więcej na ten temat!
