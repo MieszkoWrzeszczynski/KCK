@@ -39,13 +39,16 @@ def combineTokens():
 
     for fileName in tokensFiles:
         keyWords= ''
-        with open(dirPathTokens + fileName, 'r') as file:
+        with open(os.path.join(dirPathTokens, fileName), 'r') as file:
             for line in file:
-                keyWords+=line
+
+                print (line)
+                keyWords+=line.replace(' ', ',')
 
         with open(os.path.join(dirPath, "t_combined"), 'a+') as file:
-            file.write(u"\'{0:s}\':\'{1:s}\',\n".format(fileName, keyWords))
+            file.write("\'{0}\':\'{1}\'\n".format(fileName, keyWords))
 
 
 
 combineTokens()
+print('Koniec')
