@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import arcade
 import random
 from random import randint

@@ -3,7 +3,6 @@ import os
 import ply.lex as lex
 import ply.yacc as yacc
 from ply.lex import TOKEN
-import arcade.key
 
 
 class Parser():
@@ -99,19 +98,19 @@ class Parser():
         def p_left(p):
             'left : LEFT'
             self.reply="lewo"
-            self.dir= arcade.key.LEFT
+            self.dir=65361 #zamiast arcade.key.LEFT
 
         def p_right(p):
             'right : RIGHT'
-            self.dir = arcade.key.RIGHT
+            self.dir =65363 #arcade.key.RIGHT
 
         def p_top(p):
             'top : TOP'
-            self.dir = arcade.key.UP
+            self.dir =65362 #arcade.key.UP
 
         def p_down(p):
             'down : DOWN'
-            self.dir = arcade.key.DOWN
+            self.dir = 65364 #arcade.key.DOWN
 
         def p_expression_ask(p):
             'expression  : ASK '
@@ -123,7 +122,14 @@ class Parser():
         yacc.yacc()
 
         self.natural_input = input('> ').lower()
-        if(yacc.parse(self.natural_input) is None):
-            return { "command" : "error"}
+        if (yacc.parse(self.natural_input) is None):
+            return {"command": "error"}
         else:
             return yacc.parse(self.natural_input)
+
+
+''' do testów zostaw to proszę #TODO
+while True:
+    obj = Parser()
+    print(obj.get())
+'''
