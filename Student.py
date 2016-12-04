@@ -2,7 +2,7 @@ import arcade
 import re
 
 from rivescript import RiveScript
-from polDel import polishDel
+from app_resources.assets import polishDel
 
 
 class Student(arcade.Sprite):
