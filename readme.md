@@ -4,4 +4,4 @@
 pip install -r requirements.txt
 
 ### Screenshot
-![Alt text](images/readme.jpg?raw=true "Gui")
+![Alt text](app_resources/images/readme.jpg?raw=true "Gui")
