@@ -6,7 +6,7 @@ roguelike-indoor-pack/
 .idea/tasks.xml
 *.out
 parsetab.py
-input.log
+*log
 # Sensitive or high-churn files:
 .idea/dataSources.ids
 .idea/dataSources.xml

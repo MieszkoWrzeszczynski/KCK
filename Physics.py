@@ -33,7 +33,7 @@ class Physics(arcade.PhysicsEngineSimple):
     
         # If we hit a wall, move so the edges are at the same point
         if len(hit_list) > 0:
-            self.id_collided_object = hit_list[0].id
+            self.id_collided_object = hit_list[0]
             self.collision = True
             if self.player_sprite.change_x > 0:
                 for item in hit_list:
@@ -58,7 +58,7 @@ class Physics(arcade.PhysicsEngineSimple):
         # If we hit a wall, move so the edges are at the same point
         if len(hit_list) > 0:
             self.collision = True
-            self.id_collided_object = hit_list[0].id
+            self.id_collided_object = hit_list[0]
             if self.player_sprite.change_y > 0:
                 for item in hit_list:
                     self.player_sprite.top = min(item.bottom,

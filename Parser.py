@@ -15,7 +15,7 @@ class Parser():
 
     def loadToken(self,fileName):
         dirPath = os.path.dirname(os.path.realpath(__file__))
-        dirPathTokens = os.path.join(dirPath,"tokenizing","tokens")
+        dirPathTokens = os.path.join(dirPath,"app_resources/tokenizing","tokens")
 
         with open(os.path.join(dirPathTokens, fileName)) as file:
             return '|'.join(file.read().split())
@@ -29,7 +29,8 @@ class Parser():
             'RIGHT',
             'TOP',
             'DOWN',
-            'ASK'
+            'ASK',
+            'KICK'
             )
 
         @TOKEN(self.loadToken("t_GO"))
@@ -59,6 +60,7 @@ class Parser():
 
 
         t_ASK = r'[sś]ci[aą]ga'
+        t_KICK = r'wyrzucam|wyrzucić'
 
         def t_error(t):
             t.lexer.skip(1)
@@ -72,7 +74,7 @@ class Parser():
 
             self.cmd="move"
             if len(p) is 3:
-                self.steps=1
+                self.steps = 1
                 self.reply = "Idę" 
             else:
                 #self.reply = "Idę " + str(self.steps) + " razy w " + self.reply
@@ -87,7 +89,7 @@ class Parser():
 
         def p_num(p):
             'num : NUMBER'
-            self.steps=p[1]
+            self.steps = p[1]
 
         def p_direction(p):
             '''direction : left
@@ -97,16 +99,16 @@ class Parser():
 
         def p_left(p):
             'left : LEFT'
-            self.reply="lewo"
-            self.dir=65361 #zamiast arcade.key.LEFT
+            self.reply = "lewo"
+            self.dir = 65361 #arcade.key.LEFT
 
         def p_right(p):
             'right : RIGHT'
-            self.dir =65363 #arcade.key.RIGHT
+            self.dir = 65363 #arcade.key.RIGHT
 
         def p_top(p):
             'top : TOP'
-            self.dir =65362 #arcade.key.UP
+            self.dir = 65362 #arcade.key.UP
 
         def p_down(p):
             'down : DOWN'
@@ -115,6 +117,10 @@ class Parser():
         def p_expression_ask(p):
             'expression  : ASK '
             p[0] = { "command" : "ask","natural_input": self.natural_input}
+
+        def p_expression_kick(p):
+            'expression  : KICK'
+            p[0] = { "command" : "kick","natural_input": self.natural_input}
 
         def p_error(p):
              print("Nie rozumiem!")

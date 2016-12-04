@@ -1,0 +1,18 @@
+! version = 2.0
+
++ [*] (sciaganie|sciagasz|sciaga) [*]
+* <bot attitude> == yerky =>{random}A co Cię to obchodzi profesorku?|Nie twój interes.| No i co z tego?|Zajmij się sobą|Sprawdź czy nie ma Cię na zapleczu!{/random}
+* <bot attitude> == peaceful =>{random}Tak :( ....|Przepraszam ale to prawda|Przepraszam Panie Profesorze ale ma Pan racje|Niestety Tak{/random}
+* <bot attitude> == sneak =>{random}Ten facet obok mnie ściąga!|Nowak ściąga!|Ja? Nigdy w życiu. Widziałem, że facet na dole ściąga!|Pan lepiej sprawdzi tego po prawej!{/random}
+
++ [*] (podpowiedziec|podpowiedz) [*]
+* <bot prompt> == True =>{random}Prosiłbym!|Tak!|Bardzo pana proszę!{/random}
+* <bot prompt> == False =>{random}Brzydzę się takimi praktykami!|W żadnym razie.|Sam sobie poradzę.{/random}
+
++ [*] jak [*] na imie [*]
+- Mam na imię <bot name>.
+- Moje imię to <bot name>.
+- Jestem <bot name> <bot surname>.
+
++ *
+- Proszę pozwolić mi się skupić na pracy!
