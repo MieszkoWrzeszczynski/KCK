@@ -1,9 +1,14 @@
 ! version = 2.0
 
 + [*] (sciaganie|sciagasz|sciaga) [*]
-* <bot attitude> == yerky =>{random}A co Cię to obchodzi profesorku?|Nie twój interes.| No i co z tego?|Zajmij się sobą|Sprawdź czy nie ma Cię na zapleczu!{/random}
-* <bot attitude> == peaceful =>{random}Tak :( ....|Przepraszam ale to prawda|Przepraszam Panie Profesorze ale ma Pan racje|Niestety Tak{/random}
-* <bot attitude> == sneak =>{random}Ten facet obok mnie ściąga!|Nowak ściąga!|Ja? Nigdy w życiu. Widziałem, że facet na dole ściąga!|Pan lepiej sprawdzi tego po prawej!{/random}
+///// ŚCIĄGAJĄCY //////
+* <bot attitude> == nyerky =>{random}A co Cię to obchodzi profesorku?|Nie twój interes.| No i co z tego?|Zajmij się sobą|Sprawdź czy nie ma Cię na zapleczu!{/random}
+* <bot attitude> == npeaceful =>{random}Tak :( ....|Przepraszam ale to prawda|Przepraszam Panie Profesorze ale ma Pan racje|Niestety Tak{/random}
+* <bot attitude> == nsneak =>{random}Ten facet obok mnie ściąga!|Nowak ściąga!|Ja? Niee... Widziałem, że facet za mną ściąga!|Pan lepiej sprawdzi tego po prawej!{/random}
+///// UCZCIWI ///////
+* <bot attitude> == yerky =>{random}Nic nie ściągam, daj mi spokój!|Wszystko robię sam, odczep się!|Nic ci do tego!|Co ty mi sugerujesz?|Daj mi spokój!{/random}
+* <bot attitude> == peaceful =>{random}Nie Panie Profesorze!!!|Skądże!|Nigdy w życiu!|Nieśmiałbym!|Przepraszam ale nie :(|Jestem uczciwym człowiekiem!|Nie chcę iść do więzienia :({/random}
+* <bot attitude> == sneak =>{random}Ja? Skądże! Ale niech Pan sprawdzi tego obok...|Ja nigdy nie ściągam, co innego inni...|Ja nie ściągam, ale ten obok mnie tak!{/random}
 
 + [*] (podpowiedziec|podpowiedz) [*]
 * <bot prompt> == True =>{random}Prosiłbym!|Tak!|Bardzo pana proszę!|Jeśli to nie problem...|Dlaczego by nie?{/random}
