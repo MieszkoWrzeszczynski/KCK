@@ -39,6 +39,11 @@
 * <bot attitude> == peaceful =>{random}Chyba dobrze...|Raczej w porządku...|Trochę mi smutno...|Dobrze, dziękuję że pan pyta.|Trochę mi słabo :({/random}
 * <bot attitude> == sneak =>{random}Świetnie, wszystko świetnie!|Ja dobrze, ale niech pan spojrzy na tego po lewej...|Mi nic nie jest, ale ten przede mną chyba się po coś pochylał...|
 ^ Świetnie! Skoro pan jest tak miły i pyta, to się odwdzięcze i podpowiem że ten obok ściąga...{/random}
+//// cheaters
+* <bot attidute> == nyerky=>{random}Nic Ci do tego!|A co Cie to obchodzi?|Nie twoja sprawa!|Zajmij się sobą|Nie Twój interes!{/random}
+* <bot attitude> == npeaceful =>{random}Chyba dobrze...|Raczej w porządku...|Trochę mi smutno...|Dobrze, dziękuję że pan pyta.|Trochę mi słabo :({/random}
+* <bot attitude> == nsneak =>{random}Świetnie, wszystko świetnie!|Ja dobrze, ale niech pan spojrzy na tego po lewej...|Mi nic nie jest, ale ten przede mną chyba się po coś pochylał...|
+^ Świetnie! Skoro pan jest tak miły i pyta, to się odwdzięcze i podpowiem że ten obok ściąga...{/random}
 
 ////////////////////////////////////////
 
