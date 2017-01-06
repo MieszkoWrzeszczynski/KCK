@@ -3,5 +3,7 @@
 ## Dependency setup
 pip install -r requirements.txt
 
-### Screenshot
+### Run
+./setup
+#### Screenshot
 ![GUI](app_resources/images/readme.jpg?raw=true "Gui")
