@@ -1,5 +1,6 @@
 import arcade
 import re
+import ast
 
 from rivescript import RiveScript
 from app_resources.assets import polishDel
@@ -19,15 +20,14 @@ class Student(arcade.Sprite):
         self.brain.load_file("app_resources/bot_resources/student.rive")
         self.brain.load_file("app_resources/bot_resources/" + bot_resources_variable)
         self.brain.sort_replies()
-        self.id = Student.id 
+        self.id = Student.id
         self.config = self.loadConfig(bot_resources_variable)
         self.name = self.getName()
         self.surname = self.getSurname()
         self.cheat = self.checkCheatStatus()
-        self.checkCheatStatus()
 
     def loadConfig(self,filename):
-        config_file = open("app_resources/bot_resources/" + filename,'r') 
+        config_file = open("app_resources/bot_resources/" + filename,'r')
         file_content = [line.rstrip('\n') for line in config_file]
         return file_content
 
@@ -37,13 +37,13 @@ class Student(arcade.Sprite):
         print('Student ' + self.name + ' ' + self.surname + ':',reply)
 
     def getName(self):
-         return self.regexCheck("name")
+        return self.regexCheck("name")
 
     def getSurname(self):
-         return self.regexCheck("surname")
+        return self.regexCheck("surname")
 
     def checkCheatStatus(self):
-        return self.regexCheck("cheat")
+        return ast.literal_eval(self.regexCheck("cheat"))
 
     def regexCheck(self,to_check):
         regex = re.compile('! var (%s) = (.*)'%to_check)

@@ -30,7 +30,7 @@ class Parser():
             'TOP',
             'DOWN',
             'ASK',
-            'KICK'
+            'KICK',
             )
 
         @TOKEN(self.loadToken("t_GO"))
@@ -58,9 +58,9 @@ class Parser():
             t.value = int(t.value)
             return t
 
-
         t_ASK = r'[sś]ci[aą]ga'
         t_KICK = r'wyrzucam|wyrzucić'
+
 
         def t_error(t):
             t.lexer.skip(1)
@@ -75,7 +75,7 @@ class Parser():
             self.cmd="move"
             if len(p) is 3:
                 self.steps = 1
-                self.reply = "Idę" 
+                self.reply = "Idę"
             else:
                 #self.reply = "Idę " + str(self.steps) + " razy w " + self.reply
                 self.reply = "Już idę!"
@@ -116,20 +116,20 @@ class Parser():
 
         def p_expression_ask(p):
             'expression  : ASK '
-            p[0] = { "command" : "ask","natural_input": self.natural_input}
+            p[0] = { "command" : "bot","natural_input": self.natural_input}
 
         def p_expression_kick(p):
             'expression  : KICK'
             p[0] = { "command" : "kick","natural_input": self.natural_input}
 
         def p_error(p):
-             print("Nie rozumiem!")
+            '''there's must be sth. Otherwise, it returns none'''
 
         yacc.yacc()
 
         self.natural_input = input('> ').lower()
         if (yacc.parse(self.natural_input) is None):
-            return {"command": "error"}
+            return { "command" : "bot","natural_input": self.natural_input}
         else:
             return yacc.parse(self.natural_input)
 

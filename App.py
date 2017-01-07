@@ -8,18 +8,19 @@ from Student import Student
 from Lecturer import Lecturer
 from Parser import Parser
 from Physics import Physics
-
+from ProgramBot import ProgramBot
 
 class App(arcade.Window):
 
     def __init__(self, width, height):
-        
+
         super().__init__(width, height, title="Egzaminator")
         self.background_list = None
         self.lecturer = None
         self.students_amount = 11
         self.score = 0
         self.physics_engine = None
+        self.program_bot = ProgramBot()
         self.parser = Parser()
         self.MOVEMENT_SPEED = 15
         self.SPRITE_SCALING = 1
@@ -28,11 +29,11 @@ class App(arcade.Window):
 
     def resourcesSetup(self,amount_of_files):
 
-        file =  [line.rstrip('\n').split(' ') for line in open("app_resources/students.in")]
-        names = file[0]
-        surnames = file[1]
+        file      =  [line.rstrip('\n').split(' ') for line in open("app_resources/students.in")]
+        names     = file[0]
+        surnames  = file[1]
         attitudes = file[2]
-        prompt =[]
+        prompt    = []
 
         template = """
         // Bot variables
@@ -42,7 +43,7 @@ class App(arcade.Window):
         ! var attitude = {2}
         ! var prompt = {3}
         ! var cheat = {4}
-        """ 
+        """
 
         for i in range(amount_of_files):
             with open('app_resources/bot_resources/bot_'+ str(i), 'w') as the_file:
@@ -64,7 +65,7 @@ class App(arcade.Window):
         self.map = self.get_map()
         self.drawMap(self.map)
         self.physics_engine = Physics(self.lecturer,self.items)
-        
+
 
     def get_map(self):
 
@@ -97,12 +98,12 @@ class App(arcade.Window):
                     student.width = 32;
                     student.height = 61;
                     id = Student.id;
-                    student.center_x = position_x 
+                    student.center_x = position_x
                     student.center_y = position_y + 32
                     self.items.append(student)
 
                 position_x += 62
-                
+
             position_y += 62
             position_x = 0
             student_number += 1
@@ -111,7 +112,7 @@ class App(arcade.Window):
 
         position_x = 0;
         position_y = 0;
-        
+
         for x in range(11):
             for y in range(11):
                 background_sprite = arcade.Sprite("app_resources/images/background.png", self.SPRITE_SCALING)
@@ -155,22 +156,25 @@ class App(arcade.Window):
     def animate(self, dt):
 
         input = self.parser.get()
-       
+
         if(input["command"] == "move"):
             self.moveNSteps(input["steps"],input["direction"])
-        elif(input["command"] == "ask"):
-            student = self.physics_engine.getCollided()
-            if(student["collision"]):
-                print(student["student_id"].answer(input["natural_input"]))
         elif(input["command"] == "kick"):
             student = self.physics_engine.getCollided()
-            arcade.sound.play_sound(self.wilhelm )
+            arcade.sound.play_sound(self.wilhelm)
+            if(student["student_id"].cheat == True):
+                self.score += 1
             student["student_id"].kill()
-
-
+        elif(input["command"] == "bot"):
+            # to do - main program bot eg. answers for global questions
+            if(self.physics_engine.getCollided()["student_id"] != None):
+                student = self.physics_engine.getCollided();
+                print(student["student_id"].answer(input["natural_input"]))
+            else:
+                print(self.program_bot.answer(input["natural_input"]))
 
     def on_key_press(self, key, modifiers):
-        
+
         if key == arcade.key.UP and self.lecturer.center_y < 590:
             self.lecturer.change_y = self.MOVEMENT_SPEED
         elif key == arcade.key.DOWN and self.lecturer.center_y > 30:
