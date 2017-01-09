@@ -12,4 +12,4 @@ class ProgramBot():
 
     def answer(self,input):
         reply = self.brain.reply("localuser", polishDel(input))
-        print('Program: ',reply)
+        print('Program:',reply)

@@ -26,13 +26,15 @@ class App(arcade.Window):
         self.SPRITE_SCALING = 1
         self.resourcesSetup(11)
         self.wilhelm = arcade.sound.load_sound("app_resources/sounds/wilhelm.ogg")
+        self.setup()
+        print("Wpisz coś aby uruchomić program")
+
 
     def resourcesSetup(self,amount_of_files):
 
-        file      =  [line.rstrip('\n').split(' ') for line in open("app_resources/students.in")]
-        names     = file[0]
-        surnames  = file[1]
-        attitudes = file[2]
+        names     =  open("app_resources/students_informations/names").readline().split(" ")
+        surnames  =  open("app_resources/students_informations/surnames").readline().split(" ")
+        attitudes =  open("app_resources/students_informations/attitude").readline().split(" ")
         prompt    = []
 
         template = """
@@ -56,8 +58,6 @@ class App(arcade.Window):
                 ))
 
     def setup(self):
-
-        """ Set up the game and initialize the variables. """
         self.lecturer = Lecturer(120,250,"app_resources/images/lecturer.png", self.SPRITE_SCALING)
         self.background_list = arcade.SpriteList()
         self.items = arcade.SpriteList()
@@ -66,10 +66,8 @@ class App(arcade.Window):
         self.drawMap(self.map)
         self.physics_engine = Physics(self.lecturer,self.items)
 
-
     def get_map(self):
-
-        map_file = open("app_resources/maps/map.csv")
+        map_file = open("app_resources/maps/map" + str(randint(0,3)) + ".csv")
         map_array = []
         for line in map_file:
             line = line.strip()
@@ -104,7 +102,7 @@ class App(arcade.Window):
 
                 position_x += 62
 
-            position_y += 62
+            position_y += 55
             position_x = 0
             student_number += 1
 
@@ -127,7 +125,6 @@ class App(arcade.Window):
             position_x = 0
 
     def on_draw(self):
-
         arcade.start_render()
 
         self.background_list.draw()
@@ -153,25 +150,25 @@ class App(arcade.Window):
         if(student["collision"]):
             print("Zderzyłem się ze studentem o imieniu " + student["student_id"].getName())
 
-    def animate(self, dt):
+    def animate(self,dt):
 
-        input = self.parser.get()
+        user_input = self.parser.get()
 
-        if(input["command"] == "move"):
-            self.moveNSteps(input["steps"],input["direction"])
-        elif(input["command"] == "kick"):
+        if(user_input["command"] == "move"):
+            self.program_bot.answer("run")
+            self.moveNSteps(user_input["steps"],user_input["direction"])
+        elif(user_input["command"] == "kick"):
             student = self.physics_engine.getCollided()
             arcade.sound.play_sound(self.wilhelm)
             if(student["student_id"].cheat == True):
                 self.score += 1
             student["student_id"].kill()
-        elif(input["command"] == "bot"):
-            # to do - main program bot eg. answers for global questions
+        elif(user_input["command"] == "bot"):
             if(self.physics_engine.getCollided()["student_id"] != None):
                 student = self.physics_engine.getCollided();
-                print(student["student_id"].answer(input["natural_input"]))
+                student["student_id"].answer(user_input["natural_input"])
             else:
-                print(self.program_bot.answer(input["natural_input"]))
+                self.program_bot.answer(user_input["natural_input"])
 
     def on_key_press(self, key, modifiers):
 
@@ -194,7 +191,6 @@ class App(arcade.Window):
 
 def main():
     window = App(620,620)
-    window.setup()
     arcade.run()
 
 

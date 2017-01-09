@@ -1,4 +1,16 @@
 ! version = 2.0
 
++ run
+-w takim razie ruszajmy!
+-robi się!
+-ok!
+-idziemy!
+-ruszmy się!
+
++ [*] (witam|witaj|czesc|hej|hejka|heja|siemasz|siema|elo|siemanko|dzien dobry|siemka|siemson) [*]
+- {random}Dzień dobry|Witam serdecznie|Siemanko{/random}.
+
 + *
-- heja
+-nie zrozumiałem :(
+-możesz powtórzyć?
+-ale o co Ci chodzi?

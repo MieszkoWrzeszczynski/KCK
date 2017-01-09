@@ -127,7 +127,7 @@ class Parser():
 
         yacc.yacc()
 
-        self.natural_input = input('> ').lower()
+        self.natural_input = input('User: ').lower()
         if (yacc.parse(self.natural_input) is None):
             return { "command" : "bot","natural_input": self.natural_input}
         else:
