@@ -160,8 +160,13 @@ class App(arcade.Window):
         elif(user_input["command"] == "kick"):
             student = self.physics_engine.getCollided()
             arcade.sound.play_sound(self.wilhelm)
+
             if(student["student_id"].cheat == True):
                 self.score += 1
+                print("Miałeś racje! Ten student ściągał!")
+            else:
+                print("Wyrzuciłeś uczciwego studenta!")
+                
             student["student_id"].kill()
         elif(user_input["command"] == "bot"):
             if(self.physics_engine.getCollided()["student_id"] != None):

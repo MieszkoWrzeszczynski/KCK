@@ -37,17 +37,17 @@ class Student(arcade.Sprite):
         print('Student ' + self.name + ' ' + self.surname + ':',reply)
 
     def getName(self):
-        return self.regexCheck("name")
+        return regexCheck("name",self.config )
 
     def getSurname(self):
-        return self.regexCheck("surname")
+        return regexCheck("surname",self.config )
 
     def checkCheatStatus(self):
-        return ast.literal_eval(self.regexCheck("cheat"))
+        return ast.literal_eval(regexCheck("cheat",self.config ))
 
-    def regexCheck(self,to_check):
-        regex = re.compile('! var (%s) = (.*)'%to_check)
-        for item in self.config:
-            if(regex.findall(item)):
-                match = regex.findall(item)
-                return match[0][1]
+def regexCheck(to_check,in_dict):
+    regex = re.compile('! var (%s) = (.*)'%to_check)
+    for item in in_dict:
+        if(regex.findall(item)):
+            match = regex.findall(item)
+            return match[0][1]
