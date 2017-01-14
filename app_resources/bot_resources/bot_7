@@ -1,9 +1,9 @@
 
         // Bot variables
 
-        ! var name = Ryszard
-        ! var surname = Maciejewski
-        ! var attitude = nsneak
-        ! var prompt = True
-        ! var cheat = False
+        ! var name = Marian
+        ! var surname = Włodarczyk
+        ! var attitude = yerky
+        ! var prompt = False
+        ! var cheat = True
         

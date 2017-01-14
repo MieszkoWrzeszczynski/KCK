@@ -132,10 +132,3 @@ class Parser():
             return { "command" : "bot","natural_input": self.natural_input}
         else:
             return yacc.parse(self.natural_input)
-
-
-''' do testów zostaw to proszę #TODO
-while True:
-    obj = Parser()
-    print(obj.get())
-'''
