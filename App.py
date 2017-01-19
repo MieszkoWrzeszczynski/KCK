@@ -150,39 +150,52 @@ class App(arcade.Window):
         if(student["collision"]):
             print("Zderzyłem się ze studentem o imieniu " + student["student_id"].getName())
 
+    def deleteStudent(self):
+        if(student["student_id"].cheat == True):
+            self.score += 1
+            print("Miałeś racje! Ten student ściągał!")
+        else:
+            print("Wyrzuciłeś uczciwego studenta!")
+
+        student["student_id"].kill()
+
+
+    def handlerEvent(self,event):
+
+        if(event["command"] == "move"):
+            self.program_bot.answer("run")
+            self.moveNSteps(event["steps"],event["direction"])
+
+        elif(event["command"] == "kick"):
+            student = self.physics_engine.getCollided()
+            arcade.sound.play_sound(self.wilhelm)
+            deleteStudent()
+
+        elif(event["command"] == "bot"):
+
+            if(self.physics_engine.getCollided()["student_id"] != None):
+                student = self.physics_engine.getCollided();
+                student["student_id"].answer(event["natural_input"])
+            else:
+                self.program_bot.answer(event["natural_input"])
+
+
     def animate(self,dt):
 
         user_input = self.parser.get()
-
-        if(user_input["command"] == "move"):
-            self.program_bot.answer("run")
-            self.moveNSteps(user_input["steps"],user_input["direction"])
-        elif(user_input["command"] == "kick"):
-            student = self.physics_engine.getCollided()
-            arcade.sound.play_sound(self.wilhelm)
-
-            if(student["student_id"].cheat == True):
-                self.score += 1
-                print("Miałeś racje! Ten student ściągał!")
-            else:
-                print("Wyrzuciłeś uczciwego studenta!")
-                
-            student["student_id"].kill()
-        elif(user_input["command"] == "bot"):
-            if(self.physics_engine.getCollided()["student_id"] != None):
-                student = self.physics_engine.getCollided();
-                student["student_id"].answer(user_input["natural_input"])
-            else:
-                self.program_bot.answer(user_input["natural_input"])
+        self.handlerEvent(user_input)
 
     def on_key_press(self, key, modifiers):
 
         if key == arcade.key.UP and self.lecturer.center_y < 590:
             self.lecturer.change_y = self.MOVEMENT_SPEED
+
         elif key == arcade.key.DOWN and self.lecturer.center_y > 30:
             self.lecturer.change_y = -self.MOVEMENT_SPEED
+
         elif key == arcade.key.LEFT and self.lecturer.center_x > 30:
             self.lecturer.change_x = -self.MOVEMENT_SPEED
+
         elif key == arcade.key.RIGHT and self.lecturer.center_x < 590:
             self.lecturer.change_x = self.MOVEMENT_SPEED
 
@@ -191,6 +204,7 @@ class App(arcade.Window):
 
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.lecturer.change_y = 0
+            
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.lecturer.change_x = 0
 

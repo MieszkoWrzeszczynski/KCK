@@ -1,5 +1,4 @@
 #!/bin/bash
-
 env="source ~/.virtualenvs/arcade/bin/activate"
 eval $env
 echo `date` >> program_output.log
